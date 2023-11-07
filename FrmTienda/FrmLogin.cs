@@ -70,7 +70,7 @@ namespace FrmTienda
         /// Registra el ingreso de un usuario en un archivo de registro
         /// </summary>
         /// <param name="usuario">El objeto Usuario que representa al usuario que ingresó</param>
-        public static void GuardarIngreso(Usuario usuario)
+        public void GuardarIngreso(Usuario usuario)
         {
             using (StreamWriter sw = File.AppendText(@"..\..\..\usuarios.log"))
             {
@@ -80,6 +80,5 @@ namespace FrmTienda
                 sw.WriteLine(usuario.ToString());
             }       
         }
-
     }
 }

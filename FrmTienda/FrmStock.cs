@@ -5,7 +5,7 @@ namespace FrmTienda
     {
         public Carrito producto;
         public DateTime ingreso;
-        public FrmStock(string usuario)
+        public FrmStock(string usuario, string perfil)
         {
             InitializeComponent();
             producto = new Carrito();
@@ -14,6 +14,7 @@ namespace FrmTienda
             label2.Text = usuario;
             label4.Text = this.ingreso.ToString();
             RtbRegistro.ReadOnly = true;
+            this.DarAccesos(perfil);
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
@@ -107,6 +108,21 @@ namespace FrmTienda
             foreach (Carrito producto in productos)
             {
                 LsProductos.Items.Add($"{producto.categoria} || {producto.marca} || {producto.modelo} || ${producto.precio}");
+            }
+        }
+        public void DarAccesos(string perfil)
+        {
+            switch (perfil)
+            {
+                case "vendedor":
+                    btnModificar.Enabled = false;
+                    btnAgregar.Enabled = false;
+                    btnEliminar.Enabled = false;
+                    break;
+                case "supervisor":
+                    btnModificar.Enabled = false;
+                    btnEliminar.Enabled = false;
+                    break;
             }
         }
     }

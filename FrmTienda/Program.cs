@@ -27,7 +27,7 @@ namespace FrmTienda
                 }while (frm.DialogResult != DialogResult.Cancel);
                 if (frm.UsuarioDelForm != null)
                 {
-                    FrmStock frmStock = new FrmStock(frm.UsuarioDelForm.nombre);
+                    FrmStock frmStock = new FrmStock(frm.UsuarioDelForm.nombre,frm.UsuarioDelForm.perfil);
                     frmStock.StartPosition = FormStartPosition.CenterScreen;
                     Application.Run(frmStock);
                 }          
