@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Entidades.Tecnologia">
+    <Position X="3.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAIAAAQAAAFgAAACAAAAAAAEAAAAAEAAAAIABA=</HashCode>
+      <FileName>Tecnologia.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Celular">
+    <Position X="2.75" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAFgAAIAAAAAAAAAAAAAAEAAAAAAqA=</HashCode>
+      <FileName>Celular.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Consola">
+    <Position X="0.5" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAEAAAAAAAAAAAAFgAAAAAAAAAAAAAAAAAEAAAAAAqA=</HashCode>
+      <FileName>Consola.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Televisor">
+    <Position X="9.25" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAQFgAAAAAAAAAAAAAAAAAEAAAgAAiA=</HashCode>
+      <FileName>Televisor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Computadora">
+    <Position X="6" Y="4.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAABAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Computadora.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Laptop">
+    <Position X="5" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAEgAAAAAAAAAAAAAAAAAEAAAgAAiA=</HashCode>
+      <FileName>Laptop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Entidades.Destop">
+    <Position X="7.25" Y="7" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAAAAAAAEgAAAAAAAAAAAAAAAAAEAAAAAAiA=</HashCode>
+      <FileName>Destop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="EMarcas">
+    <Position X="7" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEIIAAAAAAAAAIABAAAACJIAAAAAAAAAABAAAAAAAEA=</HashCode>
+      <FileName>Enumerado.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
