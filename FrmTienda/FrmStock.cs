@@ -26,7 +26,7 @@ namespace FrmTienda
         private void btnModificar_Click(object sender, EventArgs e)
         {
             int indice = LsProductos.SelectedIndex;
-            List<Carrito> carrito = producto.Deserializar(@"..\..\..\productos.json");
+            List<Carrito> carrito = producto.Deserializar("productos.json");
             if (indice != -1 && indice != 0)
             {
                 Carrito c = carrito[indice - 1];
@@ -34,7 +34,7 @@ namespace FrmTienda
                 modificarProducto.StartPosition = FormStartPosition.CenterScreen;
                 modificarProducto.ShowDialog();
                 c.precio = modificarProducto.precio;
-                producto.serializar(@"..\..\..\productos.json", carrito);
+                producto.serializar("productos.json", carrito);
             }
             else
             {
@@ -47,12 +47,12 @@ namespace FrmTienda
             if (rbDesedente.Checked)
             {
                 List<Carrito> carritoOrdenado = producto.OrdenarCarrito(ascendente: false);
-                producto.serializar(@"..\..\..\productos.json", carritoOrdenado);
+                producto.serializar("productos.json", carritoOrdenado);
             }
             else if (rbAsendente.Checked)
             {
                 List<Carrito> carritoOrdenado = producto.OrdenarCarrito();
-                producto.serializar(@"..\..\..\productos.json", carritoOrdenado);
+                producto.serializar("productos.json", carritoOrdenado);
             }
             else
             {
@@ -68,7 +68,7 @@ namespace FrmTienda
                 if (MessageBox.Show("¿Está seguro de que desea eliminar este producto?", "Confirmar", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
                     string? elemento = LsProductos.SelectedItem.ToString();
-                    List<Carrito> productos = producto.Deserializar(@"..\..\..\productos.json");
+                    List<Carrito> productos = producto.Deserializar("productos.json");
                     foreach (Carrito producto in productos)
                     {
                         string elementoPosible = $"{producto.categoria} || {producto.marca} || {producto.modelo} || ${producto.precio}";
@@ -76,7 +76,7 @@ namespace FrmTienda
                         {
                             LsProductos.Items.RemoveAt(indice);
                             List<Carrito> nuevaLista = productos - producto;
-                            producto.serializar(@"..\..\..\productos.json", nuevaLista);
+                            producto.serializar("productos.json", nuevaLista);
                             break;
                         }
                     }
@@ -104,12 +104,16 @@ namespace FrmTienda
         {
             LsProductos.Items.Clear();
             LsProductos.Items.Add($"categoria || marca || modelo || precio ");
-            List<Carrito> productos = producto.Deserializar(@"..\..\..\productos.json");
+            List<Carrito> productos = producto.Deserializar("productos.json");
             foreach (Carrito producto in productos)
             {
                 LsProductos.Items.Add($"{producto.categoria} || {producto.marca} || {producto.modelo} || ${producto.precio}");
             }
         }
+        /// <summary>
+        /// Asigna permisos de acceso a los botones según el perfil de usuario.
+        /// </summary>
+        /// <param name="perfil">El perfil del usuario </param>
         public void DarAccesos(string perfil)
         {
             switch (perfil)

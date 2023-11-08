@@ -45,20 +45,9 @@ namespace Entidades
         }
         public List<Carrito> OrdenarCarrito(bool ascendente = true)
         {
-            List<Carrito> carrito = this.Deserializar(@"..\..\..\productos.json");
-            for (int i = 0; i < carrito.Count - 1; i++)
-            {
-                for (int j = 0; j < carrito.Count - i - 1; j++)
-                {
-                    if ((ascendente && carrito[j].precio > carrito[j + 1].precio) || (!ascendente && carrito[j].precio < carrito[j + 1].precio))
-                    {
-                        Carrito aux = carrito[j];
-                        carrito[j] = carrito[j + 1];
-                        carrito[j + 1] = aux;
-                    }
-                }
-            }
-            return carrito;
+            List<Carrito> productos = this.Deserializar("productos.json");
+            List<Carrito> productosOrdenados = ascendente ? productos.OrderBy(producto => producto.precio).ToList() : productos.OrderByDescending(producto => producto.precio).ToList();
+            return productosOrdenados;
         }
         public void serializar(string ruta, List<Carrito> listaSerializar)
         {
@@ -78,7 +67,7 @@ namespace Entidades
         {
             try
             {
-                using StreamWriter sw = new StreamWriter(ruta);
+                using StreamWriter sw = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\" +ruta);
                 using JsonWriter writer = new JsonTextWriter(sw);
                 JsonSerializer serializer = new JsonSerializer();
                 serializer.Serialize(writer, listaSerializar);
@@ -88,17 +77,41 @@ namespace Entidades
                 Console.WriteLine("Se produjo un error al escribir en el archivo: " + ex.Message);
             }
         }
-        public List<Carrito> Deserializar(string ruta)
+        public List<Carrito> Deserializar(string nombre)
         {
-            string json = File.ReadAllText(ruta);
-            List<Carrito>? productos = JsonConvert.DeserializeObject<List<Carrito>>(json);
-            return productos;
+            string directorio = AppDomain.CurrentDomain.BaseDirectory;
+            string ruta = directorio + nombre;
+            if (File.Exists( ruta))
+            {
+                string json = File.ReadAllText(ruta);
+                List<Carrito>? productos = JsonConvert.DeserializeObject<List<Carrito>>(json);
+                return productos;
+            }
+            else if(File.Exists(ruta) !=true)
+            {
+                Directory.CreateDirectory(ruta);
+                string json = File.ReadAllText(ruta);
+                List<Carrito>? productos = JsonConvert.DeserializeObject<List<Carrito>>(json);
+                return productos;
+            }
+            else 
+            {
+                return new List<Carrito>();
+            }
         }
         public Carrito Deserializar()
         {
-            string json = File.ReadAllText(@"..\..\..\Nuevoproducto.json");
-            Carrito? productos = JsonConvert.DeserializeObject<Carrito>(json);
-            return productos;
+            string ruta = AppDomain.CurrentDomain.BaseDirectory + "\\Nuevoproducto.json";
+            if (File.Exists(ruta))
+            {
+                string json = File.ReadAllText(ruta);
+                Carrito? productos = JsonConvert.DeserializeObject<Carrito>(json);
+                return productos;
+            }
+            else
+            {
+                return new Carrito();
+            }
         }
     }
 }

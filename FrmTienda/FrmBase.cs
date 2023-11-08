@@ -76,11 +76,11 @@ namespace FrmTienda
         public void AgregarElemento(Tecnologia tecnologia)
         {
             Carrito carrito = new Carrito();
-            List<Carrito> listaPrincipal = carrito.Deserializar(@"..\..\..\productos.json");
-            carrito.serializar(@"..\..\..\Nuevoproducto.json", tecnologia);
+            List<Carrito> listaPrincipal = carrito.Deserializar("productos.json");
+            carrito.serializar("productos.json", tecnologia);
             Carrito nuevojson = carrito.Deserializar();
             listaPrincipal += nuevojson;
-            carrito.serializar(@"..\..\..\productos.json", listaPrincipal);
+            carrito.serializar("productos.json", listaPrincipal);
         }
     }
 }
