@@ -33,9 +33,9 @@ namespace FrmTienda
                 base.AgregarElemento(celular);
                 DialogResult = DialogResult.Cancel;
             }
-            catch (Exception)
+            catch (ExceptionCampoVacio)
             {
-                MessageBox.Show("pantala debe ser un enetero", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new CaracterNoNumericoException("pantalla","desimal");
             }
         }
     }

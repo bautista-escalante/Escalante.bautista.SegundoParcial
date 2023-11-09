@@ -89,7 +89,5 @@ namespace Entidades
         {
             return "tecnologia"; 
         }
-
-
     }
 }

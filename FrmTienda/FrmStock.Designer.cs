@@ -42,6 +42,7 @@
             rbDesedente = new RadioButton();
             groupBox1 = new GroupBox();
             RtbRegistro = new RichTextBox();
+            btnVerDetalles = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -59,7 +60,7 @@
             // btnModificar
             // 
             btnModificar.BackColor = Color.FromArgb(192, 192, 255);
-            btnModificar.Location = new Point(222, 397);
+            btnModificar.Location = new Point(287, 397);
             btnModificar.Name = "btnModificar";
             btnModificar.Size = new Size(75, 40);
             btnModificar.TabIndex = 1;
@@ -70,7 +71,7 @@
             // btnOrenar
             // 
             btnOrenar.BackColor = Color.FromArgb(192, 192, 255);
-            btnOrenar.Location = new Point(542, 397);
+            btnOrenar.Location = new Point(581, 397);
             btnOrenar.Name = "btnOrenar";
             btnOrenar.Size = new Size(75, 41);
             btnOrenar.TabIndex = 2;
@@ -169,7 +170,7 @@
             groupBox1.BackColor = Color.FromArgb(192, 192, 255);
             groupBox1.Controls.Add(rbDesedente);
             groupBox1.Controls.Add(rbAsendente);
-            groupBox1.Location = new Point(402, 397);
+            groupBox1.Location = new Point(426, 397);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(106, 41);
             groupBox1.TabIndex = 11;
@@ -185,12 +186,24 @@
             RtbRegistro.TabIndex = 12;
             RtbRegistro.Text = "";
             // 
+            // btnVerDetalles
+            // 
+            btnVerDetalles.BackColor = Color.FromArgb(192, 192, 255);
+            btnVerDetalles.Location = new Point(146, 397);
+            btnVerDetalles.Name = "btnVerDetalles";
+            btnVerDetalles.Size = new Size(75, 40);
+            btnVerDetalles.TabIndex = 13;
+            btnVerDetalles.Text = "ver detalles";
+            btnVerDetalles.UseVisualStyleBackColor = false;
+            btnVerDetalles.Click += btnVerDetalles_Click;
+            // 
             // FrmStock
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 450);
+            Controls.Add(btnVerDetalles);
             Controls.Add(RtbRegistro);
             Controls.Add(groupBox1);
             Controls.Add(label4);
@@ -226,5 +239,6 @@
         private RadioButton rbDesedente;
         private GroupBox groupBox1;
         private RichTextBox RtbRegistro;
+        private Button btnVerDetalles;
     }
 }

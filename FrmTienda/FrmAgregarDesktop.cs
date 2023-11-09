@@ -33,9 +33,9 @@ namespace FrmTienda
                 base.AgregarElemento(pc);
                 DialogResult = DialogResult.Cancel;
             }
-            catch (Exception)
+            catch (CaracterNoNumericoException)
             {
-                MessageBox.Show("Error. ingrese un numero entero en nucleos", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new CaracterNoNumericoException("nucleos", "entero");
             }
         }
     }

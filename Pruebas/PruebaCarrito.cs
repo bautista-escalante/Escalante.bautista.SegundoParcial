@@ -70,6 +70,7 @@ namespace Pruebas
         public void OrdenarCarrito_DeberiaOrdenarDescendentementePorPrecio()
         {
             Carrito carrito = new Carrito();
+            List<Carrito> productos = carrito.Deserializar("productos.json");
             List<Carrito> resultado = carrito.OrdenarCarrito(false);
             Assert.AreEqual(1100000, resultado[0].precio);
             Assert.AreEqual(1000000, resultado[1].precio);

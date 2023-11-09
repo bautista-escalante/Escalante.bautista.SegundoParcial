@@ -6,8 +6,6 @@ namespace Entidades
         public int resolucion { get; set; }
         public double pulgadas { get; set; }
         public string tipo { get; set; }
-
-
         public Televisor(string tipo, string so, int ram, int almacenamiento, EMarcas marca, string modelo, int precio)
             : base( so, ram, almacenamiento, marca, modelo,precio)
         {

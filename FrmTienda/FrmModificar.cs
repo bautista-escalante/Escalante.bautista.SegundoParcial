@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entidades;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -31,9 +32,13 @@ namespace FrmTienda
                     DialogResult = DialogResult.Cancel;
                 }
             }
+            catch (ExceptionCampoVacio)
+            {
+                throw new CaracterNoNumericoException("precio", "entero");
+            }
             catch (Exception)
             {
-                MessageBox.Show("el precio debe ser un numero entero", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("error inesperado", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void BtnCancelar_Click(object sender, EventArgs e)

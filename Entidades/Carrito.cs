@@ -43,9 +43,9 @@ namespace Entidades
         {
             return !(carrito == tecnologia);
         }
-        public List<Carrito> OrdenarCarrito(bool ascendente = true)
+        public List<Carrito>? OrdenarCarrito(bool ascendente = true)
         {
-            List<Carrito> productos = this.Deserializar("productos.json");
+            List<Carrito>? productos = this.Deserializar("productos.json");
             List<Carrito> productosOrdenados = ascendente ? productos.OrderBy(producto => producto.precio).ToList() : productos.OrderByDescending(producto => producto.precio).ToList();
             return productosOrdenados;
         }
@@ -77,7 +77,7 @@ namespace Entidades
                 Console.WriteLine("Se produjo un error al escribir en el archivo: " + ex.Message);
             }
         }
-        public List<Carrito> Deserializar(string nombre)
+        public List<Carrito>? Deserializar(string nombre)
         {
             string directorio = AppDomain.CurrentDomain.BaseDirectory;
             string ruta = directorio + nombre;
@@ -99,7 +99,7 @@ namespace Entidades
                 return new List<Carrito>();
             }
         }
-        public Carrito Deserializar()
+        public Carrito? Deserializar()
         {
             string ruta = AppDomain.CurrentDomain.BaseDirectory + "\\Nuevoproducto.json";
             if (File.Exists(ruta))
@@ -111,6 +111,20 @@ namespace Entidades
             else
             {
                 return new Carrito();
+            }
+        }
+        public List<Tecnologia>? deserializar()
+        {
+            string ruta = AppDomain.CurrentDomain.BaseDirectory + "productos.json";
+            if (File.Exists(ruta))
+            {
+                string json = File.ReadAllText(ruta);
+                List<Tecnologia>? listaTecnologia = JsonConvert.DeserializeObject<List<Tecnologia>>(json);
+                return listaTecnologia;
+            }
+            else
+            {
+                throw new Exception("no se encontro el archivo");
             }
         }
     }

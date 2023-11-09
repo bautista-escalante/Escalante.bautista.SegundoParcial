@@ -40,9 +40,13 @@ namespace FrmTienda
                 this.precio = int.Parse(txtPrecio.Text);
                 this.marca = this.obtener_marca();
             }
+            catch (CaracterNoNumericoException)
+            {
+                throw new CaracterNoNumericoException("almacenamiento, ram y precio", "entero");
+            }
             catch (Exception)
             {
-                MessageBox.Show("almacenamiento, ram y precio deben ser numeros enteros", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new Exception("error inesperado");
             }
         }
         /// <summary>

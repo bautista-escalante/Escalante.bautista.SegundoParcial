@@ -32,9 +32,9 @@ namespace FrmTienda
                 base.AgregarElemento(tv);
                 DialogResult = DialogResult.Cancel;
             }
-            catch (Exception)
+            catch (CaracterNoNumericoException)
             {
-                MessageBox.Show("resolucion  y pulgadas deben ser numeros", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw new CaracterNoNumericoException("resolucion, pulgadas", "numeros");
             }
         }
     }

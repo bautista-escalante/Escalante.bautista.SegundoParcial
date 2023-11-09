@@ -42,6 +42,28 @@ namespace FrmTienda
             }
             this.ActualizarVisor();
         }
+        private void btnVerDetalles_Click(object sender, EventArgs e)
+        {
+            int indice = LsProductos.SelectedIndex;
+            List<Tecnologia> carrito = producto.deserializar();
+            if (indice != -1 && indice != 0)
+            {
+                Tecnologia c = carrito[indice - 1];
+                for(int i = 0; i < carrito.Count; i++)
+                {
+                    if (c.marca == carrito[i].marca && c.modelo == carrito[i].modelo)
+                    {
+                        FrmDetalles detalles = new FrmDetalles(carrito[i]);
+                        detalles.StartPosition = FormStartPosition.CenterScreen;
+                        detalles.ShowDialog();
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("tenes que elegir un elemento ", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void btnOrenar_Click(object sender, EventArgs e)
         {
             if (rbDesedente.Checked)
@@ -129,5 +151,6 @@ namespace FrmTienda
                     break;
             }
         }
+
     }
 }
