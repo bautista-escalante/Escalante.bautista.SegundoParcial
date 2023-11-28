@@ -30,7 +30,7 @@ namespace FrmTienda
                 this.nucleos = int.Parse(txtCantNucleos.Text);
                 base.asignarValores();
                 Destop pc = new Destop(this.placa, base.so, base.ram, base.almacenamiento, base.marca, base.modelo, precio);
-                base.AgregarElemento(pc);
+                base.datos.AgregarDato(pc);
                 DialogResult = DialogResult.Cancel;
             }
             catch (CaracterNoNumericoException)

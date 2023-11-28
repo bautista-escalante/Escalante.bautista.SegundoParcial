@@ -43,6 +43,7 @@
             groupBox1 = new GroupBox();
             RtbRegistro = new RichTextBox();
             btnVerDetalles = new Button();
+            btnOrdenarCategoria = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -60,7 +61,7 @@
             // btnModificar
             // 
             btnModificar.BackColor = Color.FromArgb(192, 192, 255);
-            btnModificar.Location = new Point(287, 397);
+            btnModificar.Location = new Point(247, 398);
             btnModificar.Name = "btnModificar";
             btnModificar.Size = new Size(75, 40);
             btnModificar.TabIndex = 1;
@@ -71,7 +72,7 @@
             // btnOrenar
             // 
             btnOrenar.BackColor = Color.FromArgb(192, 192, 255);
-            btnOrenar.Location = new Point(581, 397);
+            btnOrenar.Location = new Point(507, 397);
             btnOrenar.Name = "btnOrenar";
             btnOrenar.Size = new Size(75, 41);
             btnOrenar.TabIndex = 2;
@@ -157,7 +158,7 @@
             // rbDesedente
             // 
             rbDesedente.AutoSize = true;
-            rbDesedente.Location = new Point(6, 21);
+            rbDesedente.Location = new Point(6, 22);
             rbDesedente.Name = "rbDesedente";
             rbDesedente.Size = new Size(86, 19);
             rbDesedente.TabIndex = 10;
@@ -170,7 +171,7 @@
             groupBox1.BackColor = Color.FromArgb(192, 192, 255);
             groupBox1.Controls.Add(rbDesedente);
             groupBox1.Controls.Add(rbAsendente);
-            groupBox1.Location = new Point(426, 397);
+            groupBox1.Location = new Point(356, 397);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(106, 41);
             groupBox1.TabIndex = 11;
@@ -189,7 +190,7 @@
             // btnVerDetalles
             // 
             btnVerDetalles.BackColor = Color.FromArgb(192, 192, 255);
-            btnVerDetalles.Location = new Point(146, 397);
+            btnVerDetalles.Location = new Point(127, 398);
             btnVerDetalles.Name = "btnVerDetalles";
             btnVerDetalles.Size = new Size(75, 40);
             btnVerDetalles.TabIndex = 13;
@@ -197,12 +198,24 @@
             btnVerDetalles.UseVisualStyleBackColor = false;
             btnVerDetalles.Click += btnVerDetalles_Click;
             // 
+            // btnOrdenarCategoria
+            // 
+            btnOrdenarCategoria.BackColor = Color.FromArgb(192, 192, 255);
+            btnOrdenarCategoria.Location = new Point(608, 397);
+            btnOrdenarCategoria.Name = "btnOrdenarCategoria";
+            btnOrdenarCategoria.Size = new Size(75, 41);
+            btnOrdenarCategoria.TabIndex = 14;
+            btnOrdenarCategoria.Text = "Ordenar categoria";
+            btnOrdenarCategoria.UseVisualStyleBackColor = false;
+            btnOrdenarCategoria.Click += btnOrdenarCategoria_Click;
+            // 
             // FrmStock
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(800, 450);
+            Controls.Add(btnOrdenarCategoria);
             Controls.Add(btnVerDetalles);
             Controls.Add(RtbRegistro);
             Controls.Add(groupBox1);
@@ -240,5 +253,6 @@
         private GroupBox groupBox1;
         private RichTextBox RtbRegistro;
         private Button btnVerDetalles;
+        private Button btnOrdenarCategoria;
     }
 }

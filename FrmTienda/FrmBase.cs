@@ -9,12 +9,14 @@ namespace FrmTienda
         public int ram { get; set; }
         public int almacenamiento { get; set; }
         public int precio { get; set; }
-        public Carrito producto { get; set; }
+        public AccesoProductos datos;
+        public List<Tecnologia> producto { get; set; }
         public FrmBase()
         {
             InitializeComponent();
             this.ControlBox = false;
-            this.producto = new Carrito();
+            this.datos = new AccesoProductos();
+            this.producto = this.datos.ObtenerDatos();
         }
         public virtual void btnAceptar_Click(object sender, EventArgs e)
         {
@@ -44,6 +46,10 @@ namespace FrmTienda
             {
                 throw new CaracterNoNumericoException("almacenamiento, ram y precio", "entero");
             }
+            catch (ExceptionCampoVacio)
+            {
+                throw new CaracterNoNumericoException("precio","entero");
+            }
             catch (Exception)
             {
                 throw new Exception("error inesperado");
@@ -60,7 +66,7 @@ namespace FrmTienda
         {
             try
             {
-                EMarcas marca = (EMarcas)Enum.Parse(typeof(EMarcas), txtMarca.Text);
+                EMarcas marca = (EMarcas)Enum.Parse(typeof(EMarcas), cbMarca.Text);
                 return marca;
             }
             catch (Exception)
@@ -69,22 +75,6 @@ namespace FrmTienda
                 ShowDialog();
                 return EMarcas.indefinido;
             }
-        }
-        ///<summary>
-        /// Realiza la deserialización de datos desde un archivo JSON original,
-        /// luego serializa nuevos datos en un archivo JSON, y agrega los datos 
-        /// deserializados a la lista original antes de volver a serializarla.
-        /// </summary>
-        /// <param name="tecnologia">La tecnología a ser serializada en el archivo nuevo.</param>
-        /// <returns>Una lista actualizada de objetos Carrito.</returns>
-        public void AgregarElemento(Tecnologia tecnologia)
-        {
-            Carrito carrito = new Carrito();
-            List<Carrito> listaPrincipal = carrito.Deserializar("productos.json");
-            carrito.serializar("productos.json", tecnologia);
-            Carrito nuevojson = carrito.Deserializar();
-            listaPrincipal += nuevojson;
-            carrito.serializar("productos.json", listaPrincipal);
         }
     }
 }

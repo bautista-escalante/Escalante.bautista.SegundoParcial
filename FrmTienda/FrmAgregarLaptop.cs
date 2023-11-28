@@ -32,8 +32,8 @@ namespace FrmTienda
                 base.asignarValores();
                 this.cantNucleos = int.Parse(txtCantNucleos.Text);
                 this.procesador = txtProcesador.Text;
-                Laptop laptop = new Laptop(this.rgb, this.pulgadas, this.peso,procesador,cantNucleos, base.so, base.ram, base.almacenamiento, base.marca, base.modelo, precio);
-                base.AgregarElemento(laptop);
+                Laptop laptop = new Laptop(this.pulgadas, this.peso, procesador, cantNucleos, base.so, base.ram, base.almacenamiento, base.marca, base.modelo, precio);
+                base.datos.AgregarDato(laptop);
                 DialogResult = DialogResult.Cancel;
             }
             catch (FormatException ex)

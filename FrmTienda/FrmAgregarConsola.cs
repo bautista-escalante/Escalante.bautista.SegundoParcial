@@ -15,7 +15,7 @@ namespace FrmTienda
                 this.chip = txtChip.Text;
                 base.asignarValores();
                 Consola consola = new Consola(this.chip, base.so, base.ram, base.almacenamiento, base.marca, base.modelo, base.precio);
-                base.AgregarElemento(consola);
+                base.datos.AgregarDato(consola);
                 DialogResult = DialogResult.Cancel;
             }
             catch (Exception)

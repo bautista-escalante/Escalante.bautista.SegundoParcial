@@ -30,8 +30,10 @@ namespace FrmTienda
                 this.pantalla = double.Parse(txtPantalla.Text);
                 base.asignarValores();
                 Celular celular = new Celular(this.camara, this.procesador, this.pantalla, base.so, base.almacenamiento, base.marca, base.modelo, base.ram, base.precio);
-                base.AgregarElemento(celular);
-                DialogResult = DialogResult.Cancel;
+                if(base.datos.AgregarDato(celular))
+                {
+                    DialogResult = DialogResult.Cancel;
+                }
             }
             catch (ExceptionCampoVacio)
             {

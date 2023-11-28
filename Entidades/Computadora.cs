@@ -2,8 +2,8 @@
 {
     public abstract class Computadora: Tecnologia
     {
-        protected string procesador { get; set; } 
-        protected int cantNucleos { get; set; }
+        public string procesador { get; set; } 
+        public int cantNucleos { get; set; }
         public Computadora(string so, int ram, int almacenamiento, EMarcas marca, string modelo, int precio)
             : base(so, ram, almacenamiento, marca, modelo, precio)
         {
@@ -19,10 +19,6 @@
             :this(procesador, so, ram, almacenamiento, marca, modelo, precio)
         {
             this.cantNucleos = nucleos;
-        }
-        public override string ObtenerCategoria()
-        {
-            return "computadora";
         }
     }
 }

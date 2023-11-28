@@ -12,7 +12,7 @@ namespace Entidades
             this.pulgadas = 0;
             this.peso = 0;
         }
-        public Laptop(bool rgb, double pulgadas,int peso, string procesador, int nucleos, string so, int ram, int almacenamiento, EMarcas marca, string modelo, int precio)
+        public Laptop(double pulgadas,int peso, string procesador, int nucleos, string so, int ram, int almacenamiento, EMarcas marca, string modelo, int precio)
             : this( procesador, nucleos, so, ram, almacenamiento, marca, modelo, precio)
         {
             this.pulgadas = pulgadas;
@@ -60,6 +60,10 @@ namespace Entidades
         public static bool operator !=(Laptop l1, Laptop l2)
         {
             return !(l1 == l2);
+        }
+        public override string ObtenerCategoria()
+        {
+            return "laptop";
         }
     }
 }

@@ -3,18 +3,20 @@ namespace FrmTienda
 {
     public partial class FrmStock : Form
     {
-        public Carrito producto;
+        public Carrito<Tecnologia> producto;
         public DateTime ingreso;
+        public AccesoProductos data;
         public FrmStock(string usuario, string perfil)
         {
             InitializeComponent();
-            producto = new Carrito();
+            producto = new Carrito<Tecnologia>();
             this.MaximizeBox = false;
             this.ingreso = DateTime.Now;
             label2.Text = usuario;
             label4.Text = this.ingreso.ToString();
             RtbRegistro.ReadOnly = true;
-            this.DarAccesos(perfil);
+            //this.DarAccesos(perfil);
+            this.data = new AccesoProductos();
         }
         private void btnAgregar_Click(object sender, EventArgs e)
         {
@@ -26,15 +28,17 @@ namespace FrmTienda
         private void btnModificar_Click(object sender, EventArgs e)
         {
             int indice = LsProductos.SelectedIndex;
-            List<Carrito> carrito = producto.Deserializar("productos.json");
+            List<Tecnologia> lista = data.ObtenerDatos();
             if (indice != -1 && indice != 0)
             {
-                Carrito c = carrito[indice - 1];
-                FrmModificar modificarProducto = new FrmModificar(c.precio);
+                Tecnologia? t = lista[indice - 1];
+                FrmModificar modificarProducto = new FrmModificar(t.precio);
                 modificarProducto.StartPosition = FormStartPosition.CenterScreen;
                 modificarProducto.ShowDialog();
-                c.precio = modificarProducto.precio;
-                producto.serializar("productos.json", carrito);
+                if (modificarProducto.precio != 0)
+                {
+                    data.ActializarDato(modificarProducto.precio, t.marca, t.modelo);
+                }
             }
             else
             {
@@ -45,15 +49,15 @@ namespace FrmTienda
         private void btnVerDetalles_Click(object sender, EventArgs e)
         {
             int indice = LsProductos.SelectedIndex;
-            List<Tecnologia> carrito = producto.deserializar();
+            List<Tecnologia> lista = data.ObtenerDatos();
             if (indice != -1 && indice != 0)
             {
-                Tecnologia c = carrito[indice - 1];
-                for(int i = 0; i < carrito.Count; i++)
+                Tecnologia t = lista[indice - 1];
+                foreach (Tecnologia tecnologia in lista)
                 {
-                    if (c.marca == carrito[i].marca && c.modelo == carrito[i].modelo)
+                    if (tecnologia.marca == lista[indice - 1].marca && tecnologia.modelo == lista[indice - 1].modelo)
                     {
-                        FrmDetalles detalles = new FrmDetalles(carrito[i]);
+                        FrmDetalles detalles = new FrmDetalles(t);
                         detalles.StartPosition = FormStartPosition.CenterScreen;
                         detalles.ShowDialog();
                     }
@@ -68,13 +72,31 @@ namespace FrmTienda
         {
             if (rbDesedente.Checked)
             {
-                List<Carrito> carritoOrdenado = producto.OrdenarCarrito(ascendente: false);
-                producto.serializar("productos.json", carritoOrdenado);
+                List<Tecnologia>? carritoOrdenado = producto.Ordenar("precio",this.data, false);
+                data.ModificarPosiciones(carritoOrdenado);
             }
             else if (rbAsendente.Checked)
             {
-                List<Carrito> carritoOrdenado = producto.OrdenarCarrito();
-                producto.serializar("productos.json", carritoOrdenado);
+                List<Tecnologia>? carritoOrdenado = producto.Ordenar("precio",this.data);
+                data.ModificarPosiciones(carritoOrdenado);
+            }
+            else
+            {
+                MessageBox.Show("tenes que elegir un modo ", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            this.ActualizarVisor();
+        }
+        private void btnOrdenarCategoria_Click(object sender, EventArgs e)
+        {
+            if (rbDesedente.Checked)
+            {
+                List<Tecnologia>? carritoOrdenado = producto.Ordenar("categoria",this.data, false);
+                data.ModificarPosiciones(carritoOrdenado);
+            }
+            else if (rbAsendente.Checked)
+            {
+                List<Tecnologia>? carritoOrdenado = producto.Ordenar("categoria",this.data);
+                data.ModificarPosiciones(carritoOrdenado);
             }
             else
             {
@@ -90,15 +112,14 @@ namespace FrmTienda
                 if (MessageBox.Show("¿Está seguro de que desea eliminar este producto?", "Confirmar", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == DialogResult.OK)
                 {
                     string? elemento = LsProductos.SelectedItem.ToString();
-                    List<Carrito> productos = producto.Deserializar("productos.json");
-                    foreach (Carrito producto in productos)
+                    List<Tecnologia> productos = data.ObtenerDatos();
+                    foreach (Tecnologia producto in productos)
                     {
                         string elementoPosible = $"{producto.categoria} || {producto.marca} || {producto.modelo} || ${producto.precio}";
                         if (elemento == elementoPosible)
                         {
                             LsProductos.Items.RemoveAt(indice);
-                            List<Carrito> nuevaLista = productos - producto;
-                            producto.serializar("productos.json", nuevaLista);
+                            data.EliminarDato(producto.categoria, producto.modelo);
                             break;
                         }
                     }
@@ -116,18 +137,21 @@ namespace FrmTienda
         }
         private void FrmStock_Load(object sender, EventArgs e)
         {
-            this.ActualizarVisor();
-            RtbRegistro.AppendText(File.ReadAllText(@"..\..\..\usuarios.log"));
+            if (this.data.probarConexion())
+            {
+                this.ActualizarVisor();
+                RtbRegistro.AppendText(File.ReadAllText(@"..\..\..\usuarios.log"));
+            }
         }
         /// <summary>
-        /// Actualiza el listbox mostrando una lista de productos desde un archivo JSON
+        /// Actualiza el listbox mostrando una lista de productos desde la base de datos
         /// </summary>
         public void ActualizarVisor()
         {
             LsProductos.Items.Clear();
             LsProductos.Items.Add($"categoria || marca || modelo || precio ");
-            List<Carrito> productos = producto.Deserializar("productos.json");
-            foreach (Carrito producto in productos)
+            List<Tecnologia> productos = data.ObtenerDatos();
+            foreach (Tecnologia producto in productos)
             {
                 LsProductos.Items.Add($"{producto.categoria} || {producto.marca} || {producto.modelo} || ${producto.precio}");
             }

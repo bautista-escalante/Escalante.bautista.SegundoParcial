@@ -29,8 +29,10 @@ namespace FrmTienda
                 this.tipo = txtTipo.Text;
                 base.asignarValores();
                 Televisor tv = new Televisor(this.resolucion, this.pulgadas, this.tipo, base.so, base.ram,base.almacenamiento, base.marca, base.modelo, base.precio);
-                base.AgregarElemento(tv);
-                DialogResult = DialogResult.Cancel;
+                if (base.datos.AgregarDato(tv))
+                {
+                    DialogResult = DialogResult.Cancel;
+                }
             }
             catch (CaracterNoNumericoException)
             {

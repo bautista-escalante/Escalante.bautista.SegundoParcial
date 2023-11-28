@@ -57,5 +57,9 @@ namespace Entidades
         {
             return !(d1 == d2);
         }
+        public override string ObtenerCategoria()
+        {
+            return "desktop";
+        }
     }
 }

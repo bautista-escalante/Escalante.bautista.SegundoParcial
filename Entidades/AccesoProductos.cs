@@ -7,27 +7,47 @@ using System.Data.SqlClient;
 using System.Xml.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-
 namespace Entidades
 {
-    public  class ProductosAccesoDatos
+    public  class AccesoProductos
     {
-        public  string connectionString;
-        public  SqlCommand? comando;
-        public  SqlConnection coneccion;
-        public ProductosAccesoDatos()
+        public string connectionString;
+        public SqlCommand? comando;
+        public SqlConnection coneccion;
+        public AccesoProductos()
         {
-            connectionString = "Server=.;Database=Productos;Integrated Security=True;";
+            connectionString = "Data Source=localhost\\SQLEXPRESS;Initial Catalog=Productos;Integrated Security=True";
             comando = new SqlCommand();
             coneccion = new SqlConnection(connectionString);
             comando.CommandType = System.Data.CommandType.Text;
             comando.Connection = coneccion;
         }
+        public bool probarConexion()
+        {
+            bool retorno = false;
+            try
+            {
+                this.coneccion.Open();
+                retorno = true;
+            }
+            catch(Exception)
+            {
+
+            }
+            finally
+            {
+                if (this.coneccion.State == System.Data.ConnectionState.Open)
+                {
+                    this.coneccion.Close();
+                }
+            }
+            return retorno;
+        }
         public Tecnologia? ObtenerDato(EMarcas marca, string modelo)
         {
             Tecnologia retorno = null;
-            List<Tecnologia> pepe= this.ObtenerDatos();
-            foreach (Tecnologia item in pepe)
+            List<Tecnologia> lista= this.ObtenerDatos();
+            foreach (Tecnologia item in lista)
             {
                 if (item.marca == marca && item.modelo == modelo)
                 {
@@ -42,13 +62,13 @@ namespace Entidades
             try
             {
                 coneccion.Open();
-                comando.CommandText = "SELECT * FROM Productos";
+                comando.CommandText = "SELECT * FROM producto";
                 using (SqlDataReader dR = comando.ExecuteReader())
                 {
                     while (dR.Read())
                     {
-                        EMarcas marca = (EMarcas)Enum.Parse(typeof(EMarcas), dR["marca"].ToString());
-                        switch (dR["categoria"])
+                        EMarcas marca = (EMarcas)Enum.Parse(typeof(EMarcas), dR["marca"].ToString(),true);
+                        switch (dR["categoria"].ToString())
                         {
                             case "celular":
                                 Celular elemento = new Celular(
@@ -77,7 +97,7 @@ namespace Entidades
 
                             case "desktop":
                                 Destop desktop = new Destop(
-                                    dR["placaVideo"].ToString(),
+                                    dR["chipVideo"].ToString(),
                                     dR["sistema"].ToString(),
                                     Convert.ToInt32(dR["ram"]),
                                     Convert.ToInt32(dR["almacenamiento"]),
@@ -86,7 +106,6 @@ namespace Entidades
                                     Convert.ToInt32(dR["precio"]));
                                 lista.Add(desktop);
                                 break;
-
                             case "laptop":
                                 Laptop laptop = new Laptop(
                                     Convert.ToDouble(dR["pulgadas"]),
@@ -101,7 +120,6 @@ namespace Entidades
                                     Convert.ToInt32(dR["precio"]));
                                 lista.Add(laptop);
                                 break;
-
                             case "televisor":
                                 Televisor televisor = new Televisor(
                                     Convert.ToInt32(dR["resolucion"]),
@@ -125,7 +143,10 @@ namespace Entidades
             }
             finally
             {
-                coneccion.Close();
+                if (this.coneccion.State == System.Data.ConnectionState.Open)
+                {
+                    this.coneccion.Close();
+                }
             }
             return lista;
         }
@@ -135,9 +156,10 @@ namespace Entidades
             try
             {
                 coneccion.Open();
+                comando.Parameters.Clear();
                 if (tec is Celular celular)
                 {
-                    comando.CommandText = "INSERT INTO Productos (camara,procesador,pantalla,sistema,almacenamiento,marca, modelo, categoria,ram, precio) " +
+                    comando.CommandText = "INSERT INTO producto (marca,modelo,categoria,precio,ram,almacenamiento,camara,procesador,pantalla,sistema) " +
                     "VALUES (@marca, @modelo, @categoria, @precio, @ram, @almacenamiento, @camara, @procesador, @pantalla, @sistema)";
                     comando.Parameters.AddWithValue("@marca", celular.marca);
                     comando.Parameters.AddWithValue("@Modelo", celular.modelo);
@@ -152,7 +174,7 @@ namespace Entidades
                 }
                 else if (tec is Consola consola)
                 {
-                        comando.CommandText = "INSERT INTO Productos (chipVideo, sistema, ram, almacenamiento, marca, modelo, categoria, precio) " +
+                        comando.CommandText = "INSERT INTO producto (chipVideo, sistema, ram, almacenamiento, marca, modelo, categoria, precio) " +
                             "VALUES (@chipVideo, @sistema, @ram, @almacenamiento, @marca, @modelo, @categoria, @precio)";
                         comando.Parameters.AddWithValue("@chipVideo", consola.chipVideo);
                         comando.Parameters.AddWithValue("@sistema", consola.sistemOperativo);
@@ -165,9 +187,9 @@ namespace Entidades
                 }
                 else if (tec is Destop desktop)
                 {
-                    comando.CommandText = "INSERT INTO Productos (placaVideo, sistema, ram, almacenamiento, marca, modelo, categoria, precio) " +
-                    "VALUES (@placaVideo, @sistema, @ram, @almacenamiento, @marca, @modelo, @categoria, @precio)";
-                    comando.Parameters.AddWithValue("@placaVideo", desktop.placaVideo);
+                    comando.CommandText = "INSERT INTO producto (chipVideo, sistema, ram, almacenamiento, marca, modelo, categoria, precio) " +
+                    "VALUES (@chipVideo, @sistema, @ram, @almacenamiento, @marca, @modelo, @categoria, @precio)";
+                    comando.Parameters.AddWithValue("@chipVideo", desktop.placaVideo);
                     comando.Parameters.AddWithValue("@sistema", desktop.sistemOperativo);
                     comando.Parameters.AddWithValue("@ram", desktop.ram);
                     comando.Parameters.AddWithValue("@almacenamiento", desktop.almacenamiento);
@@ -178,7 +200,7 @@ namespace Entidades
                 }
                 else if (tec is Laptop laptop)
                 {
-                    comando.CommandText = "INSERT INTO Productos (pulgadas, peso, procesador, nucleos, sistema, ram, almacenamiento, marca, modelo, categoria, precio) " +
+                    comando.CommandText = "INSERT INTO producto (pulgadas, peso, procesador, nucleos, sistema, ram, almacenamiento, marca, modelo, categoria, precio) " +
                     "VALUES (@pulgadas, @peso, @procesador, @nucleos, @sistema, @ram, @almacenamiento, @marca, @modelo, @categoria, @precio)";
                     comando.Parameters.AddWithValue("@pulgadas", laptop.pulgadas);
                     comando.Parameters.AddWithValue("@peso", laptop.peso);
@@ -194,7 +216,7 @@ namespace Entidades
                 }
                 else if (tec is Televisor televisor)
                 {
-                        comando.CommandText = "INSERT INTO Productos (resolucion, pulgadas, tipo, sistema, ram, almacenamiento, marca, modelo, categoria, precio) " +
+                        comando.CommandText = "INSERT INTO producto (resolucion, pulgadas, tipo, sistema, ram, almacenamiento, marca, modelo, categoria, precio) " +
                         "VALUES (@resolucion, @pulgadas, @tipo, @sistema, @ram, @almacenamiento, @marca, @modelo, @categoria, @precio)";
                         comando.Parameters.AddWithValue("@resolucion", televisor.resolucion);
                         comando.Parameters.AddWithValue("@pulgadas", televisor.pulgadas);
@@ -214,13 +236,16 @@ namespace Entidades
                     retorno = true;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                Console.WriteLine("Error: " + ex.Message);
             }
             finally
             {
-                coneccion.Close();
+                if (this.coneccion.State == System.Data.ConnectionState.Open)
+                {
+                    this.coneccion.Close();
+                }
             }
             return retorno;
         }
@@ -230,10 +255,10 @@ namespace Entidades
             try
             {
                 coneccion.Open();
-                comando.CommandText = "UPDATE Productos SET precio = @nuevoPrecio WHERE modelo = @modelo AND marca = @marca";
-                comando.Parameters.AddWithValue("@nuevoPrecio", precio);
+                comando.Parameters.Clear();
+                comando.CommandText = "UPDATE producto SET precio = @precio WHERE modelo = @modelo";
+                comando.Parameters.AddWithValue("@precio", precio);
                 comando.Parameters.AddWithValue("@modelo", modelo);
-                comando.Parameters.AddWithValue("@marca", marca);
                 int filasAfectadas = comando.ExecuteNonQuery();
                 if (filasAfectadas > 0)
                 {
@@ -250,19 +275,25 @@ namespace Entidades
             }
             return retorno;
         }
-        public bool EliminarDato(EMarcas marca, string modelo)
+        public bool EliminarDato(string marca, string modelo)
         {
             bool retorno = false;
             try
             {
-                coneccion.Open();
-                comando.CommandText = "DELETE FROM Productos WHERE marca = @marca AND modelo = @modelo";
-                comando.Parameters.AddWithValue("@marca", marca);
-                comando.Parameters.AddWithValue("@modelo", modelo);
-                int filasAfectadas = comando.ExecuteNonQuery();
-                if (filasAfectadas > 0)
+                using (SqlConnection conexion = new SqlConnection(connectionString))
                 {
-                    retorno = true;
+                    conexion.Open();
+                    using (SqlCommand comando = new SqlCommand())
+                    {
+                        comando.Connection = conexion;
+                        comando.CommandText = "DELETE FROM producto WHERE modelo = @modelo";
+                        comando.Parameters.AddWithValue("@modelo", modelo);
+                        int filasAfectadas = comando.ExecuteNonQuery();
+                        if (filasAfectadas > 0)
+                        {
+                            retorno = true;
+                        }
+                    }
                 }
             }
             catch (Exception ex)
@@ -271,9 +302,43 @@ namespace Entidades
             }
             finally
             {
-                coneccion.Close();
+                if (this.coneccion.State == System.Data.ConnectionState.Open)
+                {
+                    this.coneccion.Close();
+                }
             }
             return retorno;
+        }
+        public void ModificarPosiciones(List<Tecnologia> lista)
+        {
+            try
+            {
+                coneccion.Open();
+                comando.CommandText = "TRUNCATE TABLE producto";
+                int filasAfectadas = comando.ExecuteNonQuery();
+                if (filasAfectadas <= 0)
+                {
+                    if (this.coneccion.State == System.Data.ConnectionState.Open)
+                    {
+                        this.coneccion.Close();
+                    }
+                    foreach (Tecnologia item in lista)
+                    {
+                        this.AgregarDato(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error: " + ex.Message);
+            }
+            finally
+            {
+                if (this.coneccion.State == System.Data.ConnectionState.Open)
+                {
+                    this.coneccion.Close();
+                }
+            }
         }
     }
 }

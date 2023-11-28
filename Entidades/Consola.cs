@@ -5,30 +5,16 @@ namespace Entidades
     public class Consola : Tecnologia
     {
         public string chipVideo; 
-        public bool pantalla;
         
         public Consola(string so, int ram, int almacenamiento, EMarcas marca, string modelo, int precio)
             : base( so, ram, almacenamiento, marca, modelo, precio)
         {
             this.chipVideo = "no especificado";
-            this.pantalla = false;
         }
         public Consola(string chipVideo, string so, int ram, int almacenamiento, EMarcas marca, string modelo, int precio)
             : this(so, ram, almacenamiento, marca, modelo, precio)
         {
             this.chipVideo = chipVideo;
-        }
-        public Consola(string chipVideo, bool pantalla, string so, int ram, int almacenamiento, EMarcas marca, string modelo, int precio)
-            :this(chipVideo, so, ram, almacenamiento, marca, modelo, precio)
-        {
-            this.chipVideo = chipVideo;
-            this.pantalla = pantalla;
-        }
-        public Consola(bool pantalla,string chipVideo, string so, int ram, int almacenamiento, EMarcas marca, string modelo, int precio)
-            : this(chipVideo, so, ram, almacenamiento, marca, modelo, precio)
-        {
-            this.chipVideo = chipVideo;
-            this.pantalla = pantalla;
         }
 
         public override string MostrarInformacionTotal()
@@ -38,7 +24,6 @@ namespace Entidades
             sb.AppendLine($"modelo: {base.modelo}");
             sb.AppendLine($"sistemaOperativo: {base.sistemOperativo}");
             sb.AppendLine($"pulgadas: {this.chipVideo} ");
-            sb.AppendLine($"resolucion: {this.pantalla}");
             sb.AppendLine($"ram: {base.ram} gigabytes");
             sb.AppendLine($"almacenamiento: {base.almacenamiento} gigabytes");
             sb.AppendLine($"precio: ${base.precio}");
@@ -46,7 +31,7 @@ namespace Entidades
         }
         public override string ObtenerCategoria()
         {
-            return "consolas";
+            return "consola";
         }
         public override string ToString()
         {

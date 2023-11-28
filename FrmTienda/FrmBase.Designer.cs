@@ -35,7 +35,6 @@
             txtAlmacenamiento = new TextBox();
             txtRam = new TextBox();
             txtModelo = new TextBox();
-            txtMarca = new TextBox();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -43,6 +42,7 @@
             label5 = new Label();
             txtSo = new TextBox();
             label6 = new Label();
+            cbMarca = new ComboBox();
             SuspendLayout();
             // 
             // btnAceptar
@@ -92,13 +92,6 @@
             txtModelo.Name = "txtModelo";
             txtModelo.Size = new Size(197, 23);
             txtModelo.TabIndex = 5;
-            // 
-            // txtMarca
-            // 
-            txtMarca.Location = new Point(138, 12);
-            txtMarca.Name = "txtMarca";
-            txtMarca.Size = new Size(197, 23);
-            txtMarca.TabIndex = 6;
             // 
             // label1
             // 
@@ -161,12 +154,22 @@
             label6.TabIndex = 13;
             label6.Text = "sis. operativo";
             // 
+            // cbMarca
+            // 
+            cbMarca.FormattingEnabled = true;
+            cbMarca.Items.AddRange(new object[] { " Apple", " Asus", " LG", " Lenovo", " Microsoft", " Nintendo", " Philips", " Samsung", " Sony", " Xiaomi", " indefinido" });
+            cbMarca.Location = new Point(138, 17);
+            cbMarca.Name = "cbMarca";
+            cbMarca.Size = new Size(197, 23);
+            cbMarca.TabIndex = 15;
+            // 
             // FrmBase
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             ClientSize = new Size(347, 596);
+            Controls.Add(cbMarca);
             Controls.Add(label6);
             Controls.Add(txtSo);
             Controls.Add(label5);
@@ -174,7 +177,6 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(txtMarca);
             Controls.Add(txtModelo);
             Controls.Add(txtRam);
             Controls.Add(txtAlmacenamiento);
@@ -183,7 +185,6 @@
             Controls.Add(btnAceptar);
             Name = "FrmBase";
             Text = "FrmBase";
-            //Load += FrmBase_Load;
             ResumeLayout(false);
             PerformLayout();
         }
@@ -196,7 +197,6 @@
         private TextBox txtAlmacenamiento;
         private TextBox txtRam;
         private TextBox txtModelo;
-        private TextBox txtMarca;
         private Label label1;
         private Label label2;
         private Label label3;
@@ -204,5 +204,6 @@
         private Label label5;
         private TextBox txtSo;
         private Label label6;
+        private ComboBox cbMarca;
     }
 }

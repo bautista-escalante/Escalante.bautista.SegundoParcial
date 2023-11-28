@@ -40,7 +40,7 @@ namespace Entidades
         }
         public override string ObtenerCategoria()
         {
-            return "televisores";
+            return "televisor";
         }
         public override string ToString()
         {
