@@ -5,76 +5,42 @@ namespace Pruebas
     public class PruebaCarrito
     {
         [TestMethod]
-        public void OperadorSuma_DeberiaAgregarUnElementoAlCarrito()
+        public void Ordenar_DeberiaOrdenarAscendentementePorPrecio()
         {
-            List<Carrito> carrito = new List<Carrito>();
-            Carrito tecnologia = new Carrito();
-            carrito += tecnologia;
-            Assert.AreEqual(1, carrito.Count);
-            Assert.IsTrue(carrito.Contains(tecnologia));
+            Carrito<Tecnologia> carrito = new Carrito<Tecnologia>();
+            AccesoProductos productos = new AccesoProductos();
+            List<Tecnologia> producto = productos.ObtenerDatos();
+            List<Tecnologia> resultado = carrito.Ordenar("precio",productos);
+            Assert.AreEqual(460000, resultado[0].precio);
+            Assert.AreEqual(510000, resultado[1].precio);
         }
         [TestMethod]
-        public void OperadorResta_DeberiaQuitarUnElementoDelCarrito()
+        public void Ordenar_DeberiaOrdenarDescendentementePorPrecio()
         {
-            var carrito = new List<Carrito>();
-            var tecnologia = new Carrito();
-            carrito.Add(tecnologia);
-            var resultado = carrito - tecnologia;
-            Assert.AreEqual(0, resultado.Count);
-            Assert.IsFalse(resultado.Contains(tecnologia));
-        }
-        [TestMethod]
-        public void OperadorIgual_DeberiaRetornarTrueCuandoElElementoExisteEnElCarrito()
-        {
-            Carrito? carrito = new Carrito();
-            Celular tecnologia = new Celular("android", 4, 64, EMarcas.Samsung, "A12", 120000);
-            carrito.carrito.Add(tecnologia);
-            bool resultado = carrito == tecnologia;
-            Assert.IsTrue(resultado);
-        }
-        [TestMethod]
-        public void OperadorIgual_DeberiaRetornarFalseCuandoElElementoNoExisteEnElCarrito()
-        {
-            Carrito? carrito = new Carrito();
-            Laptop tecnologia = new Laptop(" intel", 4, "windows", 4, 500, EMarcas.Asus, "asus43", 123);
-            bool resultado = carrito == tecnologia;
-            Assert.IsFalse(resultado);
-        }
-        [TestMethod]
-        public void OperadorDistinto_DeberiaRetornarTrueCuandoElElementoNoExisteEnElCarrito()
-        {
-            Carrito? carrito = new Carrito();
-            Celular tecnologia = new Celular("android", 4, 64, EMarcas.Samsung, "A12", 120000);
-            bool resultado = carrito != tecnologia;
-            Assert.IsTrue(resultado);
-        }
-        [TestMethod]
-        public void OperadorDistinto_DeberiaRetornarFalseCuandoElElementoExisteEnElCarrito()
-        {
-            Carrito? carrito = new Carrito();
-            Laptop tecnologia = new Laptop(" intel", 4, "windows", 4, 500, EMarcas.Asus, "asus43", 123);
-            carrito.carrito.Add(tecnologia);
-            bool resultado = carrito != tecnologia;
-
-            Assert.IsFalse(resultado);
-        }
-        [TestMethod]
-        public void OrdenarCarrito_DeberiaOrdenarAscendentementePorPrecio()
-        {
-            Carrito carrito = new Carrito();
-            List<Carrito> resultado = carrito.OrdenarCarrito();
-            Assert.AreEqual(3, resultado[0].precio);
-            Assert.AreEqual(222, resultado[1].precio);
-        }
-        [TestMethod]
-        public void OrdenarCarrito_DeberiaOrdenarDescendentementePorPrecio()
-        {
-            Carrito carrito = new Carrito();
-            List<Carrito> productos = carrito.Deserializar("productos.json");
-            List<Carrito> resultado = carrito.OrdenarCarrito(false);
+            Carrito<Tecnologia> carrito = new Carrito<Tecnologia>();
+            AccesoProductos productos = new AccesoProductos();
+            List<Tecnologia> producto = productos.ObtenerDatos();
+            List<Tecnologia> resultado = carrito.Ordenar("precio", productos,false);
             Assert.AreEqual(1100000, resultado[0].precio);
-            Assert.AreEqual(1000000, resultado[1].precio);
 
+        }
+        [TestMethod]
+        public void Ordenar_DeberiaOrdenarAscendentementePorCategoria()
+        {
+            Carrito<Tecnologia> carrito = new Carrito<Tecnologia>();
+            AccesoProductos productos = new AccesoProductos();
+            List<Tecnologia> producto = productos.ObtenerDatos();
+            List<Tecnologia> resultado = carrito.Ordenar("categoria", productos);
+            Assert.AreEqual("celular", resultado[0].categoria);
+        }
+        [TestMethod]
+        public void Ordenar_DeberiaOrdenarDescendentementePorCategoria()
+        {
+            Carrito<Tecnologia> carrito = new Carrito<Tecnologia>();
+            AccesoProductos productos = new AccesoProductos();
+            List<Tecnologia> producto = productos.ObtenerDatos();
+            List<Tecnologia> resultado = carrito.Ordenar("categoria", productos,false);
+            Assert.AreEqual("laptop", resultado[0].categoria);
         }
     }
 }
