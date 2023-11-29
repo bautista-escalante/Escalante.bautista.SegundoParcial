@@ -113,6 +113,7 @@ namespace FrmTienda
                 {
                     string? elemento = LsProductos.SelectedItem.ToString();
                     List<Tecnologia> productos = data.ObtenerDatos();
+                    Tecnologia productoEliminado = null;
                     foreach (Tecnologia producto in productos)
                     {
                         string elementoPosible = $"{producto.categoria} || {producto.marca} || {producto.modelo} || ${producto.precio}";
@@ -120,15 +121,46 @@ namespace FrmTienda
                         {
                             LsProductos.Items.RemoveAt(indice);
                             data.EliminarDato(producto.categoria, producto.modelo);
+                            productoEliminado = producto;
                             break;
                         }
                     }
-                    this.ActualizarVisor();
+                    if (productoEliminado != null)
+                    {
+                        SaveFileDialog guardadArchivo = new SaveFileDialog();
+                        guardadArchivo.Filter = "Archivos de texto (*.txt)|*.txt";
+                        guardadArchivo.Title = "Guardar Producto Eliminado";
+                        if (guardadArchivo.ShowDialog() == DialogResult.OK)
+                        {
+                            string rutaArchivo = guardadArchivo.FileName;
+                            GuardarProductoEliminado(productoEliminado, rutaArchivo);
+                        }
+                    }
                 }
+                    this.ActualizarVisor();
             }
             else
             {
                 MessageBox.Show("tenes que elegir un elemento ", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void GuardarProductoEliminado(Tecnologia producto, string rutaArchivo)
+        {
+            try
+            {
+                using (StreamWriter writer = new StreamWriter(rutaArchivo))
+                {
+                    writer.WriteLine($"Categoría: {producto.categoria}");
+                    writer.WriteLine($"Marca: {producto.marca}");
+                    writer.WriteLine($"Modelo: {producto.modelo}");
+                    writer.WriteLine($"Precio: ${producto.precio}");
+                }
+
+                MessageBox.Show($"Producto eliminado guardado en {rutaArchivo}", "Guardado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al guardar el producto eliminado: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void Productos_SelectedIndexChanged(object sender, EventArgs e)
