@@ -24,8 +24,20 @@ namespace FrmTienda
         {
             try
             {
-                this.resolucion = int.Parse(txtResolucion.Text);
-                this.pulgadas = double.Parse(txtPulgdas.Text);
+                if (txtResolucion.Text == string.Empty || txtPulgdas.Text == string.Empty || txtTipo.Text == string.Empty)
+                {
+                    throw new ExceptionCampoVacio();
+                }
+                else if (!int.TryParse(txtResolucion.Text, out int resolucion))
+                {
+                    throw new CaracterNoNumericoException("Resolucion", "entero");
+                }
+                else if (!double.TryParse(txtPulgdas.Text, out double pulgadas))
+                {
+                    throw new CaracterNoNumericoException("Pulgdas", "decimales");
+                }
+                this.resolucion = resolucion;
+                this.pulgadas = pulgadas;
                 this.tipo = txtTipo.Text;
                 base.asignarValores();
                 Televisor tv = new Televisor(this.resolucion, this.pulgadas, this.tipo, base.so, base.ram,base.almacenamiento, base.marca, base.modelo, base.precio);
@@ -34,9 +46,13 @@ namespace FrmTienda
                     DialogResult = DialogResult.Cancel;
                 }
             }
-            catch (CaracterNoNumericoException)
+            catch (CaracterNoNumericoException ex)
             {
-                throw new CaracterNoNumericoException("resolucion, pulgadas", "numeros");
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (ExceptionCampoVacio ex)
+            {
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }

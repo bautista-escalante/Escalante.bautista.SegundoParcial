@@ -1,16 +1,12 @@
 using System.Configuration;
 using System.Text.Json;
 using System.IO;
-using Microsoft.VisualBasic.ApplicationServices;
 using System.Windows.Forms;
-
-
 namespace FrmTienda
 {
     public partial class FrmLogin : Form
     {
         private Usuario usuario;
-
         public Usuario UsuarioDelForm
         {
             get { return this.usuario; }
@@ -28,7 +24,6 @@ namespace FrmTienda
         private void btningresar_Click(object sender, EventArgs e)
         {
             this.usuario = this.Verificar();
-
             if (this.usuario != null)
             {
                 GuardarIngreso(this.usuario);

@@ -39,7 +39,7 @@ namespace FrmTienda
             }
             catch (ExceptionCampoVacio)
             {
-                throw new ExceptionCampoVacio("precio");
+                throw new ExceptionCampoVacio();
             }
             catch (Exception)
             {

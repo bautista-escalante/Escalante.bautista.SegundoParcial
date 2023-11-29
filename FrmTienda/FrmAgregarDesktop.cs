@@ -25,6 +25,14 @@ namespace FrmTienda
         {
             try
             {
+                if (txtPLaca.Text == string.Empty || txtProcesador.Text == string.Empty || txtCantNucleos.Text == string.Empty)
+                {
+                    throw new ExceptionCampoVacio();
+                }
+                else if (!int.TryParse(txtCantNucleos.Text, out int cantNucleos))
+                {
+                    throw new CaracterNoNumericoException("cantidad de nucleos", "entero");
+                }
                 this.placa = txtPLaca.Text;
                 this.procesador = txtProcesador.Text;
                 this.nucleos = int.Parse(txtCantNucleos.Text);
@@ -33,9 +41,13 @@ namespace FrmTienda
                 base.datos.AgregarDato(pc);
                 DialogResult = DialogResult.Cancel;
             }
-            catch (CaracterNoNumericoException)
+            catch (CaracterNoNumericoException ex)
             {
-                throw new CaracterNoNumericoException("nucleos", "entero");
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (ExceptionCampoVacio ex)
+            {
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }

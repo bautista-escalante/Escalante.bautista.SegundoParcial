@@ -15,7 +15,7 @@ namespace FrmTienda
             label2.Text = usuario;
             label4.Text = this.ingreso.ToString();
             RtbRegistro.ReadOnly = true;
-            //this.DarAccesos(perfil);
+            this.DarAccesos(perfil);
             this.data = new AccesoProductos();
         }
         private void btnAgregar_Click(object sender, EventArgs e)

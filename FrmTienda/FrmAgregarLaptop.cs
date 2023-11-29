@@ -27,22 +27,40 @@ namespace FrmTienda
         {
             try
             {
-                this.pulgadas = double.Parse(txtPulgadas.Text);
-                this.peso = int.Parse(txtPeso.Text);
+                if (txtPulgadas.Text == string.Empty || txtProcesador.Text == string.Empty 
+                    || txtPeso.Text == string.Empty || txtCantNucleos.Text == string.Empty )
+                {
+                    throw new ExceptionCampoVacio();
+                }
+                else if (!double.TryParse(txtPulgadas.Text, out double Pulgadas))
+                {
+                    throw new CaracterNoNumericoException("pulgadas", "desimal");
+                }
+                else if (!int.TryParse(txtPeso.Text, out int peso))
+                {
+                    throw new CaracterNoNumericoException("peso", "entero");
+                }
+                else if (!int.TryParse(txtCantNucleos.Text, out int cantNucleos))
+                {
+                    throw new CaracterNoNumericoException("cantidad de nucleos", "entero");
+                }
+
+                this.pulgadas = pulgadas;
+                this.peso = peso;
                 base.asignarValores();
-                this.cantNucleos = int.Parse(txtCantNucleos.Text);
+                this.cantNucleos = cantNucleos;
                 this.procesador = txtProcesador.Text;
                 Laptop laptop = new Laptop(this.pulgadas, this.peso, procesador, cantNucleos, base.so, base.ram, base.almacenamiento, base.marca, base.modelo, precio);
                 base.datos.AgregarDato(laptop);
                 DialogResult = DialogResult.Cancel;
             }
-            catch (FormatException ex)
+            catch (CaracterNoNumericoException ex)
             {
-                MessageBox.Show("pulgadas, peso, nucleos y precio deben ser numeros", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            catch (JsonSerializationException)
+            catch (ExceptionCampoVacio ex)
             {
-                MessageBox.Show("error al crear el producto", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
     }

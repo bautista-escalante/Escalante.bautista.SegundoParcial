@@ -8,7 +8,7 @@ namespace Entidades
 {
     public interface IListaGenerica<T>
     {
-        public List<Carrito<Tecnologia>>? OrdenarCarrito(bool ascendente = true);
+        public List<Carrito<Tecnologia>>? Ordenar(bool ascendente = true);
         public void AgregarDato(Tecnologia tec);
         public void ActializarDato(int precio);
     }

@@ -1,5 +1,5 @@
 using System.Windows.Forms;
-
+using System.Threading.Tasks;
 namespace FrmTienda
 {
     internal static class Program
@@ -10,6 +10,7 @@ namespace FrmTienda
         [STAThread]
         static void Main()
         {
+           
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
@@ -23,25 +24,22 @@ namespace FrmTienda
                     {
                         break;
                     }
-                   
                 }while (frm.DialogResult != DialogResult.Cancel);
                 if (frm.UsuarioDelForm != null)
                 {
-                    FrmStock frmStock = new FrmStock(frm.UsuarioDelForm.nombre,frm.UsuarioDelForm.perfil);
-                    frmStock.StartPosition = FormStartPosition.CenterScreen;
-                    Application.Run(frmStock);
-                }          
-
+                    FrmPantallaCarga frmCarga = new FrmPantallaCarga(frm.UsuarioDelForm);
+                    frmCarga.StartPosition = FormStartPosition.CenterScreen;
+                    frmCarga.ShowDialog();
+                    Thread.Sleep(50);
+                    FrmStock stock = new FrmStock(frm.UsuarioDelForm.nombre, frm.UsuarioDelForm.perfil);
+                    stock.StartPosition = FormStartPosition.CenterScreen;
+                    stock.ShowDialog();
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error!!!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            finally
-            {
-                MessageBox.Show("La aplicación terminó.", "FIN DEL PROGRAMA", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-
         }
     }
 }

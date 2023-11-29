@@ -1,4 +1,6 @@
 ﻿using Entidades;
+using System.Windows.Forms;
+
 namespace FrmTienda
 {
     public partial class FrmBase : Form
@@ -35,20 +37,37 @@ namespace FrmTienda
         {
             try
             {
+                if (txtSo.Text == string.Empty || txtModelo.Text == string.Empty || txtRam.Text == string.Empty
+                    || txtAlmacenamiento.Text == string.Empty || txtPrecio.Text == string.Empty)
+                {
+                    throw new ExceptionCampoVacio();
+                }
+                else if (!int.TryParse(txtRam.Text, out int ram))
+                {
+                    throw new CaracterNoNumericoException("ram", "entero");
+                }
+                else if (!int.TryParse(txtAlmacenamiento.Text, out int almacenamiento)) 
+                {
+                    throw new CaracterNoNumericoException("almacenamiento", "entero");
+                }
+                else if(!int.TryParse(txtPrecio.Text, out int precio))
+                {
+                    throw new CaracterNoNumericoException("precio", "entero");
+                }
                 this.so = txtSo.Text;
                 this.modelo = txtModelo.Text;
-                this.ram = int.Parse(txtRam.Text);
-                this.almacenamiento = int.Parse(txtAlmacenamiento.Text);
-                this.precio = int.Parse(txtPrecio.Text);
+                this.ram = ram;
+                this.almacenamiento = almacenamiento;
+                this.precio = precio;
                 this.marca = this.obtener_marca();
             }
-            catch (CaracterNoNumericoException)
+            catch (CaracterNoNumericoException ex)
             {
-                throw new CaracterNoNumericoException("almacenamiento, ram y precio", "entero");
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            catch (ExceptionCampoVacio)
+            catch (ExceptionCampoVacio ex)
             {
-                throw new CaracterNoNumericoException("precio","entero");
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             catch (Exception)
             {

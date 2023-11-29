@@ -41,7 +41,7 @@ namespace FrmTienda
         }
         public int CalcularDestino()
         {
-            string destino = CbDestino.SelectedItem.ToString();
+            string destino = CbDestino.SelectedItem?.ToString();
             if (destino != null)
             {
                 int km = 0;
@@ -61,26 +61,36 @@ namespace FrmTienda
             }
             else
             {
-                throw new ExceptionCampoVacio("destino");
+                throw new ExceptionCampoVacio();
             }
         }
         public double CalcularPeso()
         {
-            if (!string.IsNullOrWhiteSpace(txtPeso.Text))
+            double ram = 0;      
+            try
             {
-                try
+                if(!double.TryParse(txtPeso.Text, out ram))
                 {
-                return int.Parse(txtPeso.Text);
+                   throw new CaracterNoNumericoException("peso","entero");
                 }
-                catch (Exception)
+                else if (txtPeso.Text == string.Empty)
                 {
-                    throw new Exception("el campo peso debe ser un numero");
+                    throw new ExceptionCampoVacio();
                 }
             }
-            else
+            catch(CaracterNoNumericoException ex)
             {
-                throw new ExceptionCampoVacio("peso");
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+            catch (ExceptionCampoVacio ex)
+            {
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            return ram;
         }
         public double CalcularPrecio(double peso, int destino)
         {
@@ -91,7 +101,6 @@ namespace FrmTienda
         {
             RtbDetalles.Text = this.tecno.MostrarInformacionTotal();
         }
-
         private void CbDestino_SelectedIndexChanged(object sender, EventArgs e)
         {
 

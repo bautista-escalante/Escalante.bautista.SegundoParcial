@@ -5,22 +5,6 @@ namespace Entidades
 {
     public class Carrito<T> where T: Tecnologia
     {
-        public string? marca;
-        public string? modelo;
-        public int? ram;
-        public string? sistema;
-        public string? categoria;
-        public int? almacenamiento;
-        public int? precio;
-        public int? camara;
-        public double? pantalla;
-        public string? procesador;
-        public double? peso;
-        public int? resolucion;
-        public double? pulgadas;
-        public string? tipo;
-        public int? nucleos;
-        public string? chipVideo;
         public static List<Carrito<T>> operator +(List<Carrito<T>> carrito, Carrito<T> tecnologia)
         {
             if (carrito!= tecnologia)
@@ -78,6 +62,7 @@ namespace Entidades
                     lista = lista.OrderByDescending(x => x.categoria).ToList();
                 }
             }
+
             return lista;
         }
     }

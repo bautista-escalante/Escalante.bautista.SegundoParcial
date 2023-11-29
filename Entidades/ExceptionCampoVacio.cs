@@ -8,10 +8,8 @@ namespace Entidades
 {
     public class ExceptionCampoVacio: Exception
     {
-            public string Campo { get; }
-            public ExceptionCampoVacio(string nombreCampo) : base($"El campo '{nombreCampo}' no puede estar vacío.")
+            public ExceptionCampoVacio() : base($"los campos no puede estar vacíos.")
             {
-                this.Campo = nombreCampo;
             }
     }
 }
