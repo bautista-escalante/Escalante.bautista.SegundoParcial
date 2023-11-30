@@ -172,7 +172,7 @@ namespace FrmTienda
             if (this.data.probarConexion())
             {
                 this.ActualizarVisor();
-                RtbRegistro.AppendText(File.ReadAllText(@"..\..\..\usuarios.log"));
+                RtbRegistro.AppendText(File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "usuarios.log")));
             }
         }
         /// <summary>

@@ -2,8 +2,8 @@
 {
     public abstract class Computadora: Tecnologia
     {
-        public string procesador { get; set; } 
-        public int cantNucleos { get; set; }
+        public string procesador;
+        public int cantNucleos;
         public Computadora(string so, int ram, int almacenamiento, EMarcas marca, string modelo, int precio)
             : base(so, ram, almacenamiento, marca, modelo, precio)
         {

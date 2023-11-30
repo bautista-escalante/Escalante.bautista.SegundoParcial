@@ -41,12 +41,20 @@ namespace Entidades
         {
             return !(carrito == tecnologia);
         }
-        public List<Tecnologia>? Ordenar(string parametro ,AccesoProductos data,bool ascendente = true)
+        /// <summary>
+        /// Ordena una lista de objetos Tecnologia según el parámetro especificado.
+        /// </summary>
+        /// <param name="criterio">El parámetro por el cual se va a ordenar la lista (puede ser "precio" o "categoria").</param>
+        /// <param name="data">El objeto AccesoProductos que proporciona acceso a los datos.</param>
+        /// <param name="ascendente">Indica si la lista debe ordenarse de forma ascendente (predeterminado) o descendente.</param>
+        /// <returns>Una lista ordenada de objetos Tecnologia según el parámetro especificado.</returns>
+
+        public List<Tecnologia>? Ordenar(string criterio ,AccesoProductos data,bool ascendente = true)
         {
             List<Tecnologia> lista = data.ObtenerDatos();
             if (ascendente)
             {
-                if (parametro == "precio")
+                if (criterio == "precio")
                 {
                     lista = lista.OrderBy(x => x.precio).ToList();
                 }
@@ -57,7 +65,7 @@ namespace Entidades
             }
             else
             {
-                if (parametro == "precio")
+                if (criterio == "precio")
                 {
                     lista = lista.OrderByDescending(x => x.precio).ToList();
                 }

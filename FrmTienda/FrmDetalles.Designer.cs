@@ -86,6 +86,7 @@
             txtPeso.BackColor = Color.FromArgb(192, 255, 255);
             txtPeso.Location = new Point(447, 148);
             txtPeso.Name = "txtPeso";
+            txtPeso.PlaceholderText = "ej: 5 ";
             txtPeso.Size = new Size(159, 23);
             txtPeso.TabIndex = 4;
             // 

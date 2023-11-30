@@ -5,13 +5,13 @@ namespace Entidades
 {
     public abstract class Tecnologia
     {
-        public string sistemOperativo { get; set; }
-        public int ram { get; set; }
-        public int almacenamiento { get; set; }
-        public EMarcas marca { get; set; }
-        public string modelo { get; set; }
-        public int precio { get; set; }
-        public string categoria { get; set; }
+        public string sistemOperativo;
+        public int ram;
+        public int almacenamiento;
+        public EMarcas marca;
+        public string modelo;
+        public int precio;
+        public string categoria;
         protected Tecnologia()
         {
             this.ram = 0;
@@ -83,7 +83,7 @@ namespace Entidades
             return base.Equals(ob);
         }
         /// <returns>
-        /// la categoria ala que pertenece
+        /// la categoria a la que pertenece
         /// </returns>
         public virtual string ObtenerCategoria()
         {

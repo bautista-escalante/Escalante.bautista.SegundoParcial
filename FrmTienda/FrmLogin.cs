@@ -44,11 +44,11 @@ namespace FrmTienda
         private Usuario Verificar()
         {
                 Usuario? rta = null ;
-                using (StreamReader sr = new StreamReader(@"MOCK_DATA.json"))
+                using (StreamReader sr = new StreamReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MOCK_DATA.json")))
                 {                       
                     string json_str = sr.ReadToEnd();
                         
-                    List<Usuario> usuarios = (List<Usuario>)JsonSerializer.Deserialize<List<Usuario>>(json_str);
+                    List<Usuario>? usuarios = (List<Usuario>)JsonSerializer.Deserialize<List<Usuario>>(json_str);
 
                     foreach (Usuario item in usuarios)
                     {
@@ -67,10 +67,10 @@ namespace FrmTienda
         /// <param name="usuario">El objeto Usuario que representa al usuario que ingresó</param>
         public void GuardarIngreso(Usuario usuario)
         {
-            using (StreamWriter sw = File.AppendText(@"..\..\..\usuarios.log"))
+            using (StreamWriter sw = File.AppendText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "usuarios.log")))
             {
                 sw.WriteLine($"ingreso: {usuario.nombre} {usuario.apellido}");
-                sw.WriteLine($"correo: { usuario.correo}");
+                sw.WriteLine($"correo: {usuario.correo}");
                 sw.WriteLine($"fecha:  {DateTime.Now}");
                 sw.WriteLine(usuario.ToString());
             }       

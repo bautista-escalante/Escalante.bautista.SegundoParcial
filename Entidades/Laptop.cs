@@ -4,8 +4,8 @@ namespace Entidades
 {
     public class Laptop: Computadora
     {
-        public double pulgadas { get; set; }
-        public int peso { get; set; }
+        public double pulgadas;
+        public int peso;
         public Laptop(string procesador, int nucleos, string so, int ram, int almacenamiento, EMarcas marca, string modelo, int precio)
             : base( procesador, nucleos, so, ram, almacenamiento, marca, modelo, precio)
         {

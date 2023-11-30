@@ -43,6 +43,10 @@ namespace Entidades
             }
             return retorno;
         }
+        /// <summary>
+        /// Obtiene un objeto Tecnologia basado en la marca y el modelo proporcionados.
+        /// </summary>
+        /// <returns>Un objeto Tecnologia que coincide con la marca y el modelo, o null si no se encuentra ninguna coincidencia.</returns>
         public Tecnologia? ObtenerDato(EMarcas marca, string modelo)
         {
             Tecnologia retorno = null;
@@ -56,6 +60,10 @@ namespace Entidades
             }
             return retorno; 
         }
+        /// <summary>
+        /// Obtiene datos de la base de datos y devuelve una lista de objetos de la clase Tecnologia.
+        /// </summary>
+        /// <returns>Una lista de objetos Tecnologia.</returns>
         public List<Tecnologia> ObtenerDatos()
         {
             List<Tecnologia> lista = new List<Tecnologia>();
@@ -150,6 +158,10 @@ namespace Entidades
             }
             return lista;
         }
+        /// <summary>
+        /// Agrega un objeto Tecnologia a la base de datos.
+        /// </summary>
+        /// <returns>True si la operación de inserción fue exitosa, False en caso contrario.</returns>
         public bool AgregarDato(Tecnologia tec)
         {
             bool retorno = false;
@@ -249,6 +261,10 @@ namespace Entidades
             }
             return retorno;
         }
+        /// <summary>
+        /// Actualiza el precio de un producto en la base de datos según la marca y el modelo proporcionados.
+        /// </summary>
+        /// <returns>True si la actualización fue exitosa, False en caso contrario.</returns>
         public bool ActializarDato(int precio,EMarcas marca,string modelo)
         {
             bool retorno = false;
@@ -275,6 +291,10 @@ namespace Entidades
             }
             return retorno;
         }
+        /// <summary>
+        /// Elimina un producto de la base de datos según la marca y el modelo proporcionados.
+        /// </summary>
+        /// <returns>True si la eliminación fue exitosa, False en caso contrario.</returns>
         public bool EliminarDato(string marca, string modelo)
         {
             bool retorno = false;
@@ -309,6 +329,9 @@ namespace Entidades
             }
             return retorno;
         }
+        /// <summary>
+        /// Modifica las posiciones de la tabla "producto" en la base de datos al vaciarla y luego insertar los elementos de la lista.
+        /// </summary>
         public void ModificarPosiciones(List<Tecnologia> lista)
         {
             try
