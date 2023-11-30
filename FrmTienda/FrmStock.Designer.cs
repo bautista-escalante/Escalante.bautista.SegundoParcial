@@ -61,7 +61,7 @@
             // btnModificar
             // 
             btnModificar.BackColor = Color.FromArgb(192, 192, 255);
-            btnModificar.Location = new Point(247, 398);
+            btnModificar.Location = new Point(224, 398);
             btnModificar.Name = "btnModificar";
             btnModificar.Size = new Size(75, 40);
             btnModificar.TabIndex = 1;
@@ -72,7 +72,7 @@
             // btnOrenar
             // 
             btnOrenar.BackColor = Color.FromArgb(192, 192, 255);
-            btnOrenar.Location = new Point(507, 397);
+            btnOrenar.Location = new Point(470, 397);
             btnOrenar.Name = "btnOrenar";
             btnOrenar.Size = new Size(75, 41);
             btnOrenar.TabIndex = 2;
@@ -94,7 +94,7 @@
             // btnEliminar
             // 
             btnEliminar.BackColor = Color.FromArgb(192, 192, 255);
-            btnEliminar.Location = new Point(713, 397);
+            btnEliminar.Location = new Point(699, 397);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(75, 41);
             btnEliminar.TabIndex = 4;
@@ -171,7 +171,7 @@
             groupBox1.BackColor = Color.FromArgb(192, 192, 255);
             groupBox1.Controls.Add(rbDesedente);
             groupBox1.Controls.Add(rbAsendente);
-            groupBox1.Location = new Point(356, 397);
+            groupBox1.Location = new Point(330, 397);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(106, 41);
             groupBox1.TabIndex = 11;
@@ -190,7 +190,7 @@
             // btnVerDetalles
             // 
             btnVerDetalles.BackColor = Color.FromArgb(192, 192, 255);
-            btnVerDetalles.Location = new Point(127, 398);
+            btnVerDetalles.Location = new Point(114, 398);
             btnVerDetalles.Name = "btnVerDetalles";
             btnVerDetalles.Size = new Size(75, 40);
             btnVerDetalles.TabIndex = 13;
@@ -201,7 +201,7 @@
             // btnOrdenarCategoria
             // 
             btnOrdenarCategoria.BackColor = Color.FromArgb(192, 192, 255);
-            btnOrdenarCategoria.Location = new Point(608, 397);
+            btnOrdenarCategoria.Location = new Point(580, 397);
             btnOrdenarCategoria.Name = "btnOrdenarCategoria";
             btnOrdenarCategoria.Size = new Size(75, 41);
             btnOrdenarCategoria.TabIndex = 14;

@@ -38,14 +38,28 @@ namespace FrmTienda
                 this.nucleos = int.Parse(txtCantNucleos.Text);
                 base.asignarValores();
                 Destop pc = new Destop(this.placa, base.so, base.ram, base.almacenamiento, base.marca, base.modelo, precio);
-                base.datos.AgregarDato(pc);
-                DialogResult = DialogResult.Cancel;
+                foreach (Tecnologia tecnologia in base.datos.ObtenerDatos())
+                {
+                    Tecnologia datos = base.datos.ObtenerDato(tecnologia.marca, tecnologia.modelo);
+                    if (datos.marca == pc.marca && datos.modelo == pc.modelo)
+                    {
+                        throw new ElementoDuplicadoException("desktop");
+                    }
+                }
+                if (base.datos.AgregarDato(pc))
+                {
+                    DialogResult = DialogResult.Cancel;
+                }
             }
             catch (CaracterNoNumericoException ex)
             {
                 MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             catch (ExceptionCampoVacio ex)
+            {
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (ElementoDuplicadoException ex)
             {
                 MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }

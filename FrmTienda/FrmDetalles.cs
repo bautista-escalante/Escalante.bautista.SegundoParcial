@@ -1,36 +1,41 @@
 ﻿using Entidades;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-
 namespace FrmTienda
 {
     public partial class FrmDetalles : Form, IEnvios
     {
+        public delegate void DetectarCambio(string ruta);
+        public event DetectarCambio MostrarAnimacion;
+        public event DetectarCambio MostrarEnvio;
         Tecnologia tecno;
         public FrmDetalles(Tecnologia tecnologia)
         {
             this.tecno = tecnologia;
             InitializeComponent();
+            MostrarAnimacion += MostarGif;
+            MostrarEnvio += ImprimirEnvio;
+        }
+        public void MostarGif(string ruta)
+        {
+            pbEnvio.Visible = true;
+            pbEnvio.Load(ruta);
+        }
+        public void ImprimirEnvio(string entrada)
+        {
+            RtbDetalles.AppendText("precio de envio: $" + entrada + Environment.NewLine);
         }
         private void btnCancularEnvio_Click(object sender, EventArgs e)
         {
             try
             {
                 txtPrecio.Text = this.CalcularPrecio(this.CalcularPeso(), this.CalcularDestino()).ToString();
+                MostrarAnimacion?.Invoke("camion.gif");
+                MostrarEnvio?.Invoke(txtPrecio.Text);
             }
             catch (ExceptionCampoVacio ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
@@ -66,19 +71,19 @@ namespace FrmTienda
         }
         public double CalcularPeso()
         {
-            double ram = 0;      
+            double peso = 0;
             try
             {
-                if(!double.TryParse(txtPeso.Text, out ram))
+                if (!double.TryParse(txtPeso.Text, out peso))
                 {
-                   throw new CaracterNoNumericoException("peso","entero");
+                    throw new CaracterNoNumericoException("peso", "entero");
                 }
                 else if (txtPeso.Text == string.Empty)
                 {
                     throw new ExceptionCampoVacio();
                 }
             }
-            catch(CaracterNoNumericoException ex)
+            catch (CaracterNoNumericoException ex)
             {
                 MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
@@ -90,7 +95,7 @@ namespace FrmTienda
             {
                 MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            return ram;
+            return peso;
         }
         public double CalcularPrecio(double peso, int destino)
         {
@@ -103,7 +108,6 @@ namespace FrmTienda
         }
         private void CbDestino_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
     }
 }

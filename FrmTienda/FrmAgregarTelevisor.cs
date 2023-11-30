@@ -41,6 +41,14 @@ namespace FrmTienda
                 this.tipo = txtTipo.Text;
                 base.asignarValores();
                 Televisor tv = new Televisor(this.resolucion, this.pulgadas, this.tipo, base.so, base.ram,base.almacenamiento, base.marca, base.modelo, base.precio);
+                foreach (Tecnologia tecnologia in base.datos.ObtenerDatos())
+                {
+                    Tecnologia dato = base.datos.ObtenerDato(tecnologia.marca, tecnologia.modelo);
+                    if (dato.marca == tv.marca && dato.modelo == tv.modelo)
+                    {
+                        throw new ElementoDuplicadoException("televisor");
+                    }
+                }
                 if (base.datos.AgregarDato(tv))
                 {
                     DialogResult = DialogResult.Cancel;
@@ -51,6 +59,10 @@ namespace FrmTienda
                 MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             catch (ExceptionCampoVacio ex)
+            {
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (ElementoDuplicadoException ex)
             {
                 MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }

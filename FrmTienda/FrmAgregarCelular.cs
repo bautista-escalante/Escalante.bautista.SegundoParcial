@@ -39,7 +39,15 @@ namespace FrmTienda
                 this.pantalla = pantalla;
                 base.asignarValores();
                 Celular celular = new Celular(this.camara, this.procesador, this.pantalla, base.so, base.almacenamiento, base.marca, base.modelo, base.ram, base.precio);
-                if(base.datos.AgregarDato(celular))
+                foreach (Tecnologia tecnologia in base.datos.ObtenerDatos())
+                {
+                    Tecnologia datos = base.datos.ObtenerDato(tecnologia.marca, tecnologia.modelo);
+                    if (datos.marca == celular.marca && datos.modelo == celular.modelo)
+                    {
+                        throw new ElementoDuplicadoException("celular");
+                    }
+                }
+                if (base.datos.AgregarDato(celular))
                 {
                     DialogResult = DialogResult.Cancel;
                 }
@@ -49,6 +57,10 @@ namespace FrmTienda
                 MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             catch(CaracterNoNumericoException ex)
+            {
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (ElementoDuplicadoException ex)
             {
                 MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }

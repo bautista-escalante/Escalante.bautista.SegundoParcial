@@ -37,6 +37,8 @@
             label2 = new Label();
             label3 = new Label();
             CbDestino = new ComboBox();
+            pbEnvio = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)pbEnvio).BeginInit();
             SuspendLayout();
             // 
             // RtbDetalles
@@ -128,12 +130,22 @@
             CbDestino.TabIndex = 9;
             CbDestino.SelectedIndexChanged += CbDestino_SelectedIndexChanged;
             // 
+            // pbEnvio
+            // 
+            pbEnvio.Location = new Point(376, 303);
+            pbEnvio.Name = "pbEnvio";
+            pbEnvio.Size = new Size(230, 130);
+            pbEnvio.TabIndex = 10;
+            pbEnvio.TabStop = false;
+            pbEnvio.Visible = false;
+            // 
             // FrmDetalles
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = Properties.Resources.fondo;
             ClientSize = new Size(632, 500);
+            Controls.Add(pbEnvio);
             Controls.Add(CbDestino);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -146,6 +158,7 @@
             Name = "FrmDetalles";
             Text = "Detalles";
             Load += FrmDetalles_Load;
+            ((System.ComponentModel.ISupportInitialize)pbEnvio).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -161,5 +174,6 @@
         private Label label2;
         private Label label3;
         private ComboBox CbDestino;
+        private PictureBox pbEnvio;
     }
 }

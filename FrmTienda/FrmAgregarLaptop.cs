@@ -51,14 +51,28 @@ namespace FrmTienda
                 this.cantNucleos = cantNucleos;
                 this.procesador = txtProcesador.Text;
                 Laptop laptop = new Laptop(this.pulgadas, this.peso, procesador, cantNucleos, base.so, base.ram, base.almacenamiento, base.marca, base.modelo, precio);
-                base.datos.AgregarDato(laptop);
-                DialogResult = DialogResult.Cancel;
+                foreach (Tecnologia tecnologia in base.datos.ObtenerDatos())
+                {
+                    Tecnologia dato = base.datos.ObtenerDato(tecnologia.marca, tecnologia.modelo);
+                    if (dato.marca == laptop.marca && dato.modelo == laptop.modelo)
+                    {
+                        throw new ElementoDuplicadoException("laptop");
+                    }
+                }
+                if (base.datos.AgregarDato(laptop))
+                {
+                    DialogResult = DialogResult.Cancel;
+                }
             }
             catch (CaracterNoNumericoException ex)
             {
                 MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             catch (ExceptionCampoVacio ex)
+            {
+                MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            catch (ElementoDuplicadoException ex)
             {
                 MessageBox.Show(ex.Message, "error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }

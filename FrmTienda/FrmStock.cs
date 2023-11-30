@@ -72,12 +72,12 @@ namespace FrmTienda
         {
             if (rbDesedente.Checked)
             {
-                List<Tecnologia>? carritoOrdenado = producto.Ordenar("precio",this.data, false);
+                List<Tecnologia>? carritoOrdenado = producto.Ordenar("precio", this.data, false);
                 data.ModificarPosiciones(carritoOrdenado);
             }
             else if (rbAsendente.Checked)
             {
-                List<Tecnologia>? carritoOrdenado = producto.Ordenar("precio",this.data);
+                List<Tecnologia>? carritoOrdenado = producto.Ordenar("precio", this.data);
                 data.ModificarPosiciones(carritoOrdenado);
             }
             else
@@ -90,12 +90,12 @@ namespace FrmTienda
         {
             if (rbDesedente.Checked)
             {
-                List<Tecnologia>? carritoOrdenado = producto.Ordenar("categoria",this.data, false);
+                List<Tecnologia>? carritoOrdenado = producto.Ordenar("categoria", this.data, false);
                 data.ModificarPosiciones(carritoOrdenado);
             }
             else if (rbAsendente.Checked)
             {
-                List<Tecnologia>? carritoOrdenado = producto.Ordenar("categoria",this.data);
+                List<Tecnologia>? carritoOrdenado = producto.Ordenar("categoria", this.data);
                 data.ModificarPosiciones(carritoOrdenado);
             }
             else
@@ -137,7 +137,7 @@ namespace FrmTienda
                         }
                     }
                 }
-                    this.ActualizarVisor();
+                this.ActualizarVisor();
             }
             else
             {
