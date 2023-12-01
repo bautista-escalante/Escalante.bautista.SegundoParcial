@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="FrmAgregarCelular.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmAgregarConsola.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmAgregarDesktop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmAgregarLaptop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmAgregarProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmAgregarTelevisor.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmDetalles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmModificar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmPantallaCarga.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FrmStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>

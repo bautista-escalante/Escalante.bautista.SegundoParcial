@@ -8,9 +8,9 @@ namespace FrmTienda
         public AccesoProductos data;
         public FrmStock(string usuario, string perfil)
         {
+            this.MaximizeBox = false;
             InitializeComponent();
             producto = new Carrito<Tecnologia>();
-            this.MaximizeBox = false;
             this.ingreso = DateTime.Now;
             label2.Text = usuario;
             label4.Text = this.ingreso.ToString();

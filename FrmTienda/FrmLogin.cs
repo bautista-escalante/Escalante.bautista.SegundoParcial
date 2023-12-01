@@ -2,6 +2,8 @@ using System.Configuration;
 using System.Text.Json;
 using System.IO;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+
 namespace FrmTienda
 {
     public partial class FrmLogin : Form
@@ -44,21 +46,21 @@ namespace FrmTienda
         private Usuario Verificar()
         {
                 Usuario? rta = null ;
-                using (StreamReader sr = new StreamReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "MOCK_DATA.json")))
-                {                       
+            string ruta = Directory.GetCurrentDirectory() + @"\MOCK_DATA.json";
+            using (StreamReader sr = new StreamReader(ruta))
+            {                       
                     string json_str = sr.ReadToEnd();
-                        
-                    List<Usuario>? usuarios = (List<Usuario>)JsonSerializer.Deserialize<List<Usuario>>(json_str);
 
-                    foreach (Usuario item in usuarios)
+                List<Usuario>? usuarios = JsonConvert.DeserializeObject<List<Usuario>?>(File.ReadAllText(ruta));
+                foreach (Usuario item in usuarios)
+                {
+                    if (item.nombre == this.txtusuario.Text && item.clave == this.txtcontraseña.Text || item.correo == this.txtusuario.Text && item.clave == this.txtcontraseña.Text)
                     {
-                        if (item.nombre == this.txtusuario.Text && item.clave == this.txtcontraseña.Text || item.correo == this.txtusuario.Text && item.clave == this.txtcontraseña.Text)
-                        {
-                            rta = item;
-                            break;
-                        }
+                        rta = item;
+                        break;
                     }
                 }
+            }
                 return rta;
         }
         /// <summary>
