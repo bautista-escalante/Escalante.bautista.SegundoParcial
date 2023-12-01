@@ -8,7 +8,6 @@ namespace FrmTienda
         public AccesoProductos data;
         public FrmStock(string usuario, string perfil)
         {
-            this.MaximizeBox = false;
             InitializeComponent();
             producto = new Carrito<Tecnologia>();
             this.ingreso = DateTime.Now;
@@ -171,6 +170,7 @@ namespace FrmTienda
         {
             if (this.data.probarConexion())
             {
+                this.MaximizeBox = false;
                 this.ActualizarVisor();
                 RtbRegistro.AppendText(File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "usuarios.log")));
             }

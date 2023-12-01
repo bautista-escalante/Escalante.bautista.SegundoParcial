@@ -229,6 +229,7 @@
             Controls.Add(btnModificar);
             Controls.Add(btnAgregar);
             Name = "FrmStock";
+            SizeGripStyle = SizeGripStyle.Hide;
             Text = "stock";
             Load += FrmStock_Load;
             groupBox1.ResumeLayout(false);
