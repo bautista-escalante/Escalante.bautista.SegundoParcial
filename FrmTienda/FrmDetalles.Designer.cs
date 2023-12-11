@@ -123,6 +123,7 @@
             // CbDestino
             // 
             CbDestino.BackColor = Color.FromArgb(192, 255, 255);
+            CbDestino.DropDownStyle = ComboBoxStyle.DropDownList;
             CbDestino.FormattingEnabled = true;
             CbDestino.Items.AddRange(new object[] { "CABA", "Conurbano", "Interior" });
             CbDestino.Location = new Point(447, 44);

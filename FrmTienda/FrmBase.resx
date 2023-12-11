@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <metadata name="cbMarca.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAyAAAAMgCAYAAADbcAZoAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vQAADr0BR/uQrQAA/7JJREFUeF7s/Xu7b1uXngUFDKCiclBQVDSCS8RDFM/GQBQFEY2iwaCIn0YQBcGE
+        vAAADrwBlbxySQAA/7JJREFUeF7s/Xu7b1uXngUFDKCiclBQVDSCS8RDFM/GQBQFEY2iwaCIn0YQBcGE
         hJCq7KSSqhyqcqoKoiAIgiCKgiCKoigoil/jtT2ttae1p7XRx5xz7TnX3Pu9rvHHfd2jz/UJ7uv59dV/
         1d/wr/zKT/67/78/8ZO/4V/5E2me0//fX/F/++/c+f/zK/bd/uvdv5K287/8y/791//L8bf/dp7L/+9f
         tu/2f2v7//XL9t3+69y/nM6z8df9S/G33/wv/fGr7d9+87/Y/s3m/6b6XzT/P9v4W/iXf/LXwsZf+/+g

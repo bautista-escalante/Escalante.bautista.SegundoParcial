@@ -156,6 +156,7 @@
             // 
             // cbMarca
             // 
+            cbMarca.DropDownStyle = ComboBoxStyle.DropDownList;
             cbMarca.FormattingEnabled = true;
             cbMarca.Items.AddRange(new object[] { " Apple", " Asus", " LG", " Lenovo", " Microsoft", " Nintendo", " Philips", " Samsung", " Sony", " Xiaomi", " indefinido" });
             cbMarca.Location = new Point(138, 17);

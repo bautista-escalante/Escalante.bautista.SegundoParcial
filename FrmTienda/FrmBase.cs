@@ -46,11 +46,11 @@ namespace FrmTienda
                 {
                     throw new CaracterNoNumericoException("ram", "entero");
                 }
-                else if (!int.TryParse(txtAlmacenamiento.Text, out int almacenamiento)) 
+                else if (!int.TryParse(txtAlmacenamiento.Text, out int almacenamiento))
                 {
                     throw new CaracterNoNumericoException("almacenamiento", "entero");
                 }
-                else if(!int.TryParse(txtPrecio.Text, out int precio))
+                else if (!int.TryParse(txtPrecio.Text, out int precio))
                 {
                     throw new CaracterNoNumericoException("precio", "entero");
                 }
