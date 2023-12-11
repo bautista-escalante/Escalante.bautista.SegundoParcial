@@ -29,13 +29,9 @@ namespace FrmTienda
         }
         public async Task Cargar()
         {
-            await Task.Delay(2000);
-            this.quitar();
-            
-        }
-        public void quitar() 
-        {
+            await Task.Delay(900);
             this.Close();
+
         }
     }
 }
