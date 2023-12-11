@@ -1,18 +1,20 @@
 ﻿using Entidades;
+using System;
+
 namespace FrmTienda
 {
     public partial class FrmStock : Form
     {
         public Carrito<Tecnologia> producto;
-        public DateTime ingreso;
+        public static string hora;
         public AccesoProductos data;
+        public delegate void Actualizar();
+        private System.Threading.Timer timer;
         public FrmStock(string usuario, string perfil)
         {
             InitializeComponent();
             producto = new Carrito<Tecnologia>();
-            this.ingreso = DateTime.Now;
             label2.Text = usuario;
-            label4.Text = this.ingreso.ToString();
             RtbRegistro.ReadOnly = true;
             this.DarAccesos(perfil);
             this.data = new AccesoProductos();
@@ -166,6 +168,10 @@ namespace FrmTienda
         {
 
         }
+        private void OnTimerTick(object state)
+        {
+            ActualizarHora();
+        }
         private void FrmStock_Load(object sender, EventArgs e)
         {
             if (this.data.probarConexion())
@@ -173,6 +179,7 @@ namespace FrmTienda
                 this.MaximizeBox = false;
                 this.ActualizarVisor();
                 RtbRegistro.AppendText(File.ReadAllText(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "usuarios.log")));
+                this.timer = new System.Threading.Timer(OnTimerTick, null, 0, 1000);
             }
         }
         /// <summary>
@@ -180,6 +187,8 @@ namespace FrmTienda
         /// </summary>
         public void ActualizarVisor()
         {
+            Thread thread = new Thread(ActualizarHora);
+            thread.Start();
             LsProductos.Items.Clear();
             LsProductos.Items.Add($"categoria || marca || modelo || precio ");
             List<Tecnologia> productos = data.ObtenerDatos();
@@ -207,6 +216,19 @@ namespace FrmTienda
                     break;
             }
         }
-
+        public void ActualizarHora()
+        {
+            if (InvokeRequired)
+            {
+               Invoke((MethodInvoker)delegate
+                {
+                    ActualizarHora();
+                });
+            }
+            else
+            {
+               label4.Text = DateTime.Now.ToString("HH:mm:ss");
+            }
+        }
     }
 }
