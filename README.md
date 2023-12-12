@@ -54,9 +54,40 @@ Usando los usuarios hardcodeados en MOCK_DATA.json, permite ingresar el usuario 
 ![login 14_10_2023 12_37_40](https://github.com/bautista-escalante/Escalante.Bautista.PrimerParcial/assets/123372673/0cf35920-9e6e-4621-8724-0297e73286d8)
 
 ## pantalla de carga
-en un hilo se cargan los datos mientras se muetra una pantalla de carga 
 
 ![loading-1](https://github.com/bautista-escalante/Escalante.bautista.SegundoParcial/assets/123372673/4e432556-2b46-45e6-b1c8-d48eb5dd409f)
+
+uso una task para cargar el form principal mientras se muestra la pantalla de carga 
+```
+// En program.cs
+if (frm.UsuarioDelForm != null)
+{
+    Task.Run(() => CargarForm(frm.UsuarioDelForm));
+    FrmStock stock = new FrmStock(frm.UsuarioDelForm.nombre, frm.UsuarioDelForm.perfil);
+    stock.StartPosition = FormStartPosition.CenterScreen;
+    stock.ShowDialog();
+}
+...
+public static void CargarForm(Usuario usuario)
+{
+    FrmPantallaCarga frmCarga = new FrmPantallaCarga(usuario);
+    frmCarga.StartPosition = FormStartPosition.CenterScreen;
+    frmCarga.ShowDialog();
+}
+// en FrmPantallaCarga
+ private async void FrmPantallaCarga_Load(object sender, EventArgs e)
+ {
+     pbLoading.Load("loading-1.gif");
+     await Cargar();
+ }
+ public async Task Cargar()
+ {
+     await Task.Delay(900);
+     this.Close();
+
+ }
+```
+
 
 ## pantalla principal 
 cuanta con un listBox donde se muestran los productos y un RichTextBox donde se muestra el registro de usuarios

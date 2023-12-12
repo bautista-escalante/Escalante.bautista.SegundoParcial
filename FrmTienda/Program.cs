@@ -27,7 +27,7 @@ namespace FrmTienda
                 }while (frm.DialogResult != DialogResult.Cancel);
                 if (frm.UsuarioDelForm != null)
                 {
-                    Task.Run(() => nombre(frm.UsuarioDelForm));
+                    Task.Run(() => CargarForm(frm.UsuarioDelForm));
                     FrmStock stock = new FrmStock(frm.UsuarioDelForm.nombre, frm.UsuarioDelForm.perfil);
                     stock.StartPosition = FormStartPosition.CenterScreen;
                     stock.ShowDialog();
@@ -38,7 +38,7 @@ namespace FrmTienda
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        public static void nombre(Usuario usuario)
+        public static void CargarForm(Usuario usuario)
         {
             FrmPantallaCarga frmCarga = new FrmPantallaCarga(usuario);
             frmCarga.StartPosition = FormStartPosition.CenterScreen;
