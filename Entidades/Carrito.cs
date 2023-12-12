@@ -60,14 +60,14 @@ namespace Entidades
                 }
                 else
                 {
-                    lista = lista.OrderBy(x => x.precio).ToList();
+                    lista = lista.OrderBy(x => x.categoria).ToList();
                 }
             }
             else
             {
                 if (criterio == "precio")
                 {
-                    lista = lista.OrderByDescending(x => x.categoria).ToList();
+                    lista = lista.OrderByDescending(x => x.precio).ToList();
                 }
                 else
                 {

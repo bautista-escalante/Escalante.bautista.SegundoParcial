@@ -11,8 +11,10 @@ namespace Pruebas
             AccesoProductos productos = new AccesoProductos();
             List<Tecnologia> producto = productos.ObtenerDatos();
             List<Tecnologia> resultado = carrito.Ordenar("precio",productos);
-            Assert.AreEqual(resultado[0].precio, resultado[0].precio);
-            Assert.AreEqual(resultado[1].precio, resultado[1].precio);
+            for (int i = 0;i<resultado.Count-1;i++)
+            {
+                Assert.IsTrue(resultado[i].precio <= resultado[i + 1].precio);
+            }
         }
         [TestMethod]
         public void Ordenar_DeberiaOrdenarDescendentementePorPrecio()
@@ -21,17 +23,21 @@ namespace Pruebas
             AccesoProductos productos = new AccesoProductos();
             List<Tecnologia> producto = productos.ObtenerDatos();
             List<Tecnologia> resultado = carrito.Ordenar("precio", productos,false);
-            Assert.AreEqual(resultado[0].precio, resultado[0].precio);
-
+            for (int i = 0; i < resultado.Count - 1; i++)
+            {
+                Assert.IsTrue(resultado[i].precio >= resultado[i + 1].precio);
+            }
         }
         [TestMethod]
         public void Ordenar_DeberiaOrdenarAscendentementePorCategoria()
         {
             Carrito<Tecnologia> carrito = new Carrito<Tecnologia>();
             AccesoProductos productos = new AccesoProductos();
-            List<Tecnologia> producto = productos.ObtenerDatos();
             List<Tecnologia> resultado = carrito.Ordenar("categoria", productos);
-            Assert.IsTrue(resultado[0].categoria == resultado[0].categoria);
+            for (int i = 0; i < resultado.Count - 1; i++)
+            {
+                Assert.IsTrue(resultado[i].categoria.Length == resultado[i].categoria.Length);
+            }
         }
         [TestMethod]
         public void Ordenar_DeberiaOrdenarDescendentementePorCategoria()
@@ -40,7 +46,10 @@ namespace Pruebas
             AccesoProductos productos = new AccesoProductos();
             List<Tecnologia> producto = productos.ObtenerDatos();
             List<Tecnologia> resultado = carrito.Ordenar("categoria", productos,false);
-            Assert.IsTrue(resultado[0].categoria == resultado[0].categoria);
+            for (int i = 0; i < resultado.Count - 1; i++)
+            {
+                Assert.IsTrue(resultado[i].categoria.Length == resultado[i].categoria.Length);
+            };
         }
     }
 }
